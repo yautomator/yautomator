@@ -1,0 +1,40 @@
+@font-face{
+    font-family: 'Inter Variable';
+    src: url('/fonts/InterVariable.woff2') format('woff2');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-style: normal;
+    font-family: 'Inter Variable', sans-serif;
+    line-height: normal;
+    text-rendering: optimizeLegibility;
+}
+
+:root {
+    --main-background-color: #101011;
+    --secondary-background-color: #090909;
+    --border-color: #24252a;
+    --button-hover-background-color: #1e1f23;
+    --main-text-color: lch(90.421 1 272);
+    --sidebar-icon-fill: lch(61.683 1 272);
+    --input-background-color: #17181a;
+}
+
+body {
+    min-height: 100dvh;
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+    display: grid;
+
+    grid-template-columns: auto 1fr;    
+}
+
+button {
+    cursor: pointer;
+}
+
+
