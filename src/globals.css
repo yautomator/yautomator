@@ -11,7 +11,6 @@
     font-style: normal;
     font-family: 'Inter Variable', sans-serif;
     line-height: normal;
-    text-rendering: optimizeLegibility;
 }
 
 :root {
@@ -19,18 +18,25 @@
     --secondary-background-color: #090909;
     --border-color: #24252a;
     --button-hover-background-color: #1e1f23;
-    --main-text-color: lch(90.421 1 272);
-    --sidebar-icon-fill: lch(61.683 1 272);
+    --main-text-color: #e3e4e5;
+    --secondary-text-color: #97979a;
+    --sidebar-icon-fill: #949597;
     --input-background-color: #17181a;
 }
 
 body {
-    min-height: 100dvh;
+    min-height: 100vh;
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     display: grid;
+    
+    grid-template-areas: 
+        "leftbar header rightbar"
+        "leftbar main rightbar"
+        "leftbar footer rightbar";
 
-    grid-template-columns: auto 1fr;    
+    grid-template-columns: 250px 1fr auto;
+    grid-template-rows: 50px 1fr auto;
 }
 
 button {

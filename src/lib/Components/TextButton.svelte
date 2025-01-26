@@ -1,9 +1,12 @@
 <script lang="ts">
-    export let label: string
+    export let label: string;
     export let icon;
+    export let type: "button" | "submit" | "reset" | null = "button";
+    export let form: string | null = null;
+    export let onClick: () => void;
 </script>
 
-<button>
+<button on:click={onClick} {type} {form}>
     <svelte:component this={icon} size={14}/>
     <span>{label}</span>
 </button>

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import "../globals.css"
 	import { ChevronRight } from 'lucide-svelte';
     
     export let basePath: string

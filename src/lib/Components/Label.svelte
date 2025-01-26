@@ -13,6 +13,7 @@
 <style>
     .label {
         padding: 6px 10px;
+        flex-grow: 0;
         background-color: var(--main-background-color);
         display: flex;
         place-items: center;

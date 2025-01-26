@@ -30,7 +30,9 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@lordicon/element": "^1.10.1",
 		"chroma-js": "^3.1.2",
+		"lottie-web": "^5.12.2",
 		"lucide-svelte": "^0.468.0"
 	}
 }

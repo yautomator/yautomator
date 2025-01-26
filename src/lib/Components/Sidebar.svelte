@@ -1,17 +1,6 @@
 <script lang="ts">
     import { ChevronsUpDown, Airplay, Rabbit, Egg, DollarSign, Rocket } from 'lucide-svelte';
-	import Item from "./Item.svelte";
-    
-    let showMyStartup = false;
-    let showAccelerators = false;
-
-    function toggleMyStartup() {
-        showMyStartup = !showMyStartup;
-    }
-
-    function toggleAccelerators() {
-        showAccelerators = !showAccelerators;
-    }
+	import Item from "./SidebarItem.svelte";
 </script>
 
 <nav>
@@ -31,15 +20,15 @@
                 [
                     {
                         label: "Founders",
-                        href: '#1'
+                        href: '/startup/founders'
                     },
                     {
                         label: "Product",
-                        href: '#2'
+                        href: '/startup/product'
                     },
                     {
                         label: "Images",
-                        href: '#1'
+                        href: '/startup/images'
                     }
                 ]
             }
@@ -133,9 +122,7 @@
 
 <style>
     nav {
-        box-sizing: border-box;
         height: 100vh;
-        width: 250px;
         padding: .5em;
         background-color: var(--secondary-background-color);
         border-right: 1px solid var(--border-color);
@@ -147,12 +134,6 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-
-            li {
-                a {
-                    text-decoration: none;
-                }
-            }
         }
     }
 

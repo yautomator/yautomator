@@ -1,4 +1,6 @@
-<script lang="ts"></script>
+<script lang="ts">
+
+</script>
 
 <div>
     <slot/>
@@ -7,6 +9,6 @@
 <style>
     div {
         display: flex;
-        justify-content: center;
+        gap: 10px;
     }
 </style>

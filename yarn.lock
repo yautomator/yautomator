@@ -138,6 +138,18 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lordicon/element@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/@lordicon/element/-/element-1.10.1.tgz"
+  integrity sha512-fgsnos8LSxW36RBMlkEX2STOpHoYvF95qJ9YLYUR658WBh8zzBoFyRYmfk4rpMR4xgIhDOhq+1Znmz6mp8oe4g==
+  dependencies:
+    "@lordicon/helpers" "^1.10.1"
+
+"@lordicon/helpers@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/@lordicon/helpers/-/helpers-1.10.1.tgz"
+  integrity sha512-GUOffYns36Y7j2c0oWWx0AJB80unvVnYrF1VCXJ7dAGuCyFhxuaR6NrzKgDPbY98Vn1q6b+7rRdfUEyXISiQgQ==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -893,6 +905,11 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lottie-web@^5.12.2:
+  version "5.12.2"
+  resolved "https://registry.npmjs.org/lottie-web/-/lottie-web-5.12.2.tgz"
+  integrity sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==
 
 lucide-svelte@^0.468.0:
   version "0.468.0"
