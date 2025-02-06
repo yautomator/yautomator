@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ChevronsUpDown } from 'lucide-svelte';
 	import chroma from 'chroma-js';
+	import IconHighlight from '../Icons/IconHighlight.svelte';
 
 	interface SubItem {
 		label: string;
@@ -10,18 +11,14 @@
 	export let label: string;
 	export let icon: any;
 	export let options: SubItem[] = [];
-	export let iconColor: string;
 
 	let expanded = false;
-	let iconBackgroundColor = chroma(iconColor).alpha(0.3).hex();
 	const toggleExpanded = () => (expanded = !expanded);
 </script>
 
 <li>
 	<button on:click={toggleExpanded}>
-		<div style:background-color={iconBackgroundColor}>
-			<svelte:component this={icon} size={14} color={iconColor} />
-		</div>
+		<svelte:component this={icon} />
 		<span>{label}</span>
 		<ChevronsUpDown size={14} />
 	</button>
@@ -62,13 +59,6 @@
 
 		&:hover {
 			background-color: var(--button-hover-background-color);
-		}
-
-		div {
-			display: flex;
-			place-items: center;
-			padding: 2px;
-			border-radius: 3px;
 		}
 	}
 

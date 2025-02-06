@@ -3,6 +3,11 @@
 	import OptionTree from './OptionTree.svelte';
 	import Header from './Header.svelte';
 	import Body from './Body.svelte';
+	import Startup from '../Icons/Startup.svelte';
+	import Accelerator from '../Icons/Accelerator.svelte';
+	import Imcubator from '../Icons/Imcubator.svelte';
+	import VentureCapital from '../Icons/VentureCapital.svelte';
+	import ProductLaunch from '../Icons/ProductLaunch.svelte';
 </script>
 
 <nav>
@@ -10,8 +15,7 @@
 	<Body>
 		<OptionTree
 			label="My startup"
-			icon={Airplay}
-			iconColor="#ff16b5"
+			icon={Startup}
 			options={[
 				{
 					label: 'Founders',
@@ -27,29 +31,10 @@
 				}
 			]}
 		/>
-		<OptionTree
-			label="Accelerators"
-			icon={Rabbit}
-			iconColor="orange"
-			options={[
-				{
-					label: 'About',
-					href: '#1'
-				},
-				{
-					label: 'Apply',
-					href: '#2'
-				},
-				{
-					label: 'My applications',
-					href: '#1'
-				}
-			]}
-		/>
+		<OptionTree label="Accelerators" icon={Accelerator} options={[]} />
 		<OptionTree
 			label="Imcubators"
-			icon={Egg}
-			iconColor="yellow"
+			icon={Imcubator}
 			options={[
 				{
 					label: 'About',
@@ -67,8 +52,7 @@
 		/>
 		<OptionTree
 			label="Venture Capitals"
-			icon={DollarSign}
-			iconColor="green"
+			icon={VentureCapital}
 			options={[
 				{
 					label: 'About',
@@ -86,8 +70,7 @@
 		/>
 		<OptionTree
 			label="Product Launch"
-			icon={Rocket}
-			iconColor="gray"
+			icon={ProductLaunch}
 			options={[
 				{
 					label: 'About',
@@ -110,9 +93,7 @@
 	nav {
 		grid-area: leftbar;
 		height: 100vh;
-		padding: 0.5em;
-		background-color: var(--secondary-background-color);
-		border-right: 1px solid var(--border-color);
+		padding: 10px 14px;
 		position: sticky;
 		top: 0;
 		overflow: auto;

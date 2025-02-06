@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Icons } from '$lib/Common';
-	import Icon from './Icon.svelte';
+	import LordIcon from './Icons/LordIcon.svelte';
 </script>
 
 <label for="cv">
 	<input type="file" id="cv" hidden />
-	<Icon src={Icons.Attachment} size="20px"></Icon>
+	<LordIcon src={Icons.Attachment} size="20px" />
 	<span>Upload CV</span>
 </label>
 

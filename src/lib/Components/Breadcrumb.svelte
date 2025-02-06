@@ -1,26 +1,20 @@
 <script lang="ts">
 	import { ChevronRight } from 'lucide-svelte';
-    
-    export let basePath: string
-    export let currentPath: string
+
+	let { base, current } = $props();
 </script>
 
 <div>
-    <span>{basePath}</span>
-    <ChevronRight size={20}/>
-    <span>{currentPath}</span>
+	{@render base?.()}
+	<ChevronRight size={10} />
+	{@render current?.()}
 </div>
 
 <style>
-    div {
-        display: flex;
-        place-items: center;
-        gap: 8px;
-    }
-
-    span {
-        font-size: .8125rem;
-        text-wrap: nowrap;
-    }
+	div {
+		display: flex;
+		place-items: center;
+		gap: 5px;
+		font-size: 0.75rem;
+	}
 </style>
-

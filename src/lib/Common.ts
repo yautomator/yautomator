@@ -1,22 +1,22 @@
-
-
 export enum ProgressItemPosition {
-    LEFT = 'LEFT',
-    MIDDLE = 'MIDDLE',
-    RIGHT = 'RIGHT'
+	LEFT = 'LEFT',
+	MIDDLE = 'MIDDLE',
+	RIGHT = 'RIGHT'
 }
 
 export type Founder = {
-    name: string;
-    surname: string;
-    linkedinProfileUrl: string;
-    countryOfLiving: string;
-    email: string;
-    summary: string;
-    role: string;
+	name: string;
+	surname: string;
+	role: string;
+	countryOfLiving: string;
+	linkedinProfileUrl: string;
+	email: string;
+	summary: string;
+	cv: File | null;
 };
 
 export enum Icons {
-	Organization = "/lotties/organization.json",
-	Attachment = "/lotties/attachment.json",
+	Organization = '/lotties/organization.json',
+	Attachment = '/lotties/attachment.json',
+	Check = '/lotties/check.json'
 }
