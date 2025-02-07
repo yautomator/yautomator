@@ -1,5 +1,5 @@
-import type { Actions } from '@sveltejs/kit';
 import type { Founder } from '$lib/Common';
+import type { Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ request }): Promise<{ success: boolean }> => {

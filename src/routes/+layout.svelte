@@ -1,18 +1,8 @@
 <script lang="ts">
-	import Breadcrumb from '../lib/Components/Breadcrumb.svelte';
-	import Sidebar from '../lib/Components/Sidebar/Sidebar.svelte';
-	import '../globals.css';
-	import { ChevronRight, Plus } from 'lucide-svelte';
-	import Centralizer from '$lib/Components/Centralizer.svelte';
-	import Label from '$lib/Components/Label.svelte';
-	import TextButton from '$lib/Components/Buttons/TextButton.svelte';
-	import FlexGroup from '$lib/Components/FlexGroup.svelte';
-	import { founders, emptyFounder } from '$lib/States/founders.svelte';
-	import { layout } from '$lib/States/layout.svelte';
-	import BaseModal from '$lib/Components/Modals/Base.svelte';
-	import { onDestroy, onMount, setContext } from 'svelte';
 	import type { Snippet } from 'svelte';
-	import Startup from '$lib/Components/Icons/Startup.svelte';
+	import { onDestroy, setContext } from 'svelte';
+	import '../globals.css';
+	import Sidebar from '../lib/Components/Sidebar/Sidebar.svelte';
 
 	let header = $state<Snippet[]>([]);
 	let footer = $state<Snippet[]>([]);
@@ -56,7 +46,7 @@
 			'header'
 			'main';
 
-		grid-template-rows: 40px calc(100vh - 70px);
+		grid-template-rows: 40px calc(100vh - 58px);
 		border-radius: 4px;
 		border: 0.5px solid var(--border-color);
 		background-color: var(--main-background-color);

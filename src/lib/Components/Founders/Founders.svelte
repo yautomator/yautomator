@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { founders } from '$lib/States/founders.svelte';
+	import { layout } from '$lib/States/layout.svelte';
 	import { CircleCheck, CircleDashed, FileCheck, FileQuestion, Trash } from 'lucide-svelte';
 	import IconButton from '../Buttons/IconButton.svelte';
 	import LucideIcon from '../Icons/LucideIcon.svelte';
-	import { founders } from '$lib/States/founders.svelte';
-	import { layout } from '$lib/States/layout.svelte';
 
 	const handleDelete = (e: any, founder: (typeof founders)[number]) => {
 		e.stopPropagation();
