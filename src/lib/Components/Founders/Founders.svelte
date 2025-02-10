@@ -43,7 +43,7 @@
 					{/if}
 				</td>
 				<td class="cv-body">
-					{#if founder.cv}
+					{#if founder.cvUrl}
 						<LucideIcon icon={FileCheck} />
 					{:else}
 						<LucideIcon icon={FileQuestion} color="#9f9837" />

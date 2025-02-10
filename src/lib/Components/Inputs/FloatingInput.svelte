@@ -9,7 +9,7 @@
 </script>
 
 <div>
-	<input {type} {name} {required} bind:value id={name} />
+	<input {type} {name} {required} bind:value id={name}/>
 	<label class:floating={hasContent} for={name}>{label}</label>
 </div>
 

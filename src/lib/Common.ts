@@ -12,7 +12,7 @@ export type Founder = {
 	linkedinProfileUrl: string;
 	email: string;
 	summary: string;
-	cv: File | null;
+	cvUrl: string | null;
 };
 
 export enum Icons {
