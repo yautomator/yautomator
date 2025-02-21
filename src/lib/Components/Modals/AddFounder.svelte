@@ -1,101 +1,97 @@
 <script lang="ts">
-	import Breadcrumb from '../Breadcrumb.svelte';
-	import Startup from '../Icons/Startup.svelte';
-	import Base from './Base.svelte';
-	import Button from '../Buttons/Button.svelte';
-	import FloatingInput from '../Inputs/FloatingInput.svelte';
-	import FloatingTextarea from '../Inputs/FloatingTextarea.svelte';
-	import FlexGroup from '../FlexGroup.svelte';
-	import FileDropInput from '../Inputs/FileDropInput.svelte';
-	import { founders } from '$lib/States/founders.svelte';
-	import { layout } from '$lib/States/layout.svelte';
-	import type { Founder } from '$lib/Common';
-	import { enhance, applyAction } from '$app/forms';
+	import { enhance } from '$app/forms';
+	import { modals } from '$lib/States/modals.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { X } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import Breadcrumb from '../Breadcrumb.svelte';
+	import Button from '../Buttons/Button.svelte';
+	import IconButton from '../Buttons/IconButton.svelte';
+	import FlexGroup from '../FlexGroup.svelte';
+	import Startup from '../Icons/Startup.svelte';
+	import FloatingInput from '../Inputs/FloatingInput.svelte';
+	import Base from './Base.svelte';
 
-	let founder = $state<Founder>({
-		name: '',
-		surname: '',
-		role: '',
-		countryOfLiving: '',
-		linkedinProfileUrl: '',
-		email: '',
-		summary: '',
-		cvUrl: null
-	});
+	let isLoading = $state(false);
+	let ref = $state<HTMLDialogElement>();
+	let formRef: HTMLFormElement;
 
-	$effect(() => {
-		if (layout.selectedFounder) founder = { ...layout.selectedFounder };
-	});
+	const handleNewFounderResponse: SubmitFunction = () => {
+		isLoading = true;
 
-	const handleNewFounderResponse: SubmitFunction = ({ formElement, formData, action, cancel }) => {
-		return async ({ result }) => {
-			console.log(result)
-			if (result.type === "success" && result.data?.newFounder) {
-				founders.push(result.data.newFounder);
+		return async ({ result, update }) => {
+			if (result.type === 'success') {
+				formRef.reset();
+				modals.addFounderModal?.close();
+				await update();
+			} else {
+				alert('Failed to add founder. Please try again.');
 			}
+
+			isLoading = false;
 		};
+	};
+
+	onMount(() => {
+		modals.addFounderModal = ref;
+	});
+
+	const close = () => {
+		modals.addFounderModal?.close();
 	};
 </script>
 
-<Base>
+<Base bind:ref>
 	{#snippet header()}
 		<Breadcrumb>
 			{#snippet base()}
 				<Startup />
 			{/snippet}
 			{#snippet current()}
-				<span>{layout.selectedFounder ? 'Edit' : 'New'} founder</span>
+				<span>New founder</span>
 			{/snippet}
 		</Breadcrumb>
+
+		<IconButton onclick={close}>
+			<X size={15} />
+		</IconButton>
 	{/snippet}
 
 	<form
 		id="founder"
 		method="POST"
-		use:enhance={handleNewFounderResponse}
 		enctype="multipart/form-data"
-		autocomplete="off"
+		bind:this={formRef}
+		use:enhance={handleNewFounderResponse}
+		action="?/create"
 	>
 		<FlexGroup>
-			<FloatingInput type="text" label="Name" name="name" bind:value={founder.name}  />
-			<FloatingInput
-				type="text"
-				label="Surname"
-				name="surname"
-				bind:value={founder.surname}
-			/>
+			<FloatingInput type="text" label="First name" name="firstName" />
+			<FloatingInput type="text" label="Last name" name="lastName" />
 		</FlexGroup>
+
+		<!-- <FlexGroup>
+			<FloatingInput type="text" label="Country of living" name="countryOfLiving" />
+			<FloatingInput label="LinkedIn URL" name="linkedinProfileUrl" type="url" />
+		</FlexGroup> -->
 
 		<FlexGroup>
-			<FloatingInput
-				type="text"
-				label="Country"
-				name="country"
-				bind:value={founder.countryOfLiving}
-			/>
-			<FloatingInput
-				label="LinkedIn URL"
-				name="linkedinUrl"
-				bind:value={founder.linkedinProfileUrl}
-				type="url"
-			/>
+			<FloatingInput type="text" label="Role" name="role" />
+			<FloatingInput type="email" label="Email" name="email" />
 		</FlexGroup>
 
-		<FlexGroup>
-			<FloatingInput type="text" label="Role" name="role" bind:value={founder.role} />
-			<FloatingInput type="email" label="Email" name="email" bind:value={founder.email} />
-		</FlexGroup>
-
-		<FloatingTextarea label="Summary" name="summary" bind:value={founder.summary} />
-		<FileDropInput name="cv" />
-
+		<!-- <FloatingTextarea label="Summary" name="summary" />
+		<FileDropInput name="cv" /> -->
 	</form>
 
 	{#snippet footer()}
-	<Button onClick={() => {}} type="submit" form="founder" background="#5e6ad2">
-		<span>{layout.selectedFounder ? 'Save' : 'Add'} founder</span>
-	</Button>
+		<Button type="submit" form="founder" background="#5e6ad2" disabled={isLoading}>
+			{#if isLoading}
+				<span>Loading...</span>
+			{:else}
+				<span>Add founder</span>
+			{/if}
+		</Button>
 	{/snippet}
 </Base>
 

@@ -65,7 +65,7 @@
 		accept=".pdf"
 	/>
 	<LucideIcon icon={FileUp} size={20} />
-	<span class="hint">{fileName || 'Drop your CV or click to browse'}</span>
+	<label for={name} class="hint">{fileName || 'Drop your CV or click to browse'}</label>
 </div>
 
 <style>
@@ -80,12 +80,16 @@
 		cursor: pointer;
 		transition: all 0.2s;
 		background: var(--input-background-color);
-		font-size: 0.75rem;
-		color: var(--secondary-text-color);
 
 		&:hover {
 			border-color: #5e6ad2;
 			background: rgba(94, 106, 210, 0.1);
+		}
+
+		label {
+			color: var(--secondary-text-color);
+			font-size: 0.8125rem;
+			pointer-events: none;
 		}
 	}
 

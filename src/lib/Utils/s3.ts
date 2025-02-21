@@ -1,6 +1,6 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { type Credentials } from '@aws-sdk/types';
 import { env } from '$env/dynamic/private';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { type Credentials } from '@aws-sdk/types';
 
 const credentials: Credentials = {
     accessKeyId: env.AWS_ACCESS_KEY_ID,

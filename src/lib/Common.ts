@@ -5,8 +5,9 @@ export enum ProgressItemPosition {
 }
 
 export type Founder = {
-	name: string;
-	surname: string;
+	_id: string;
+	firstName: string;
+	lastName: string;
 	role: string;
 	countryOfLiving: string;
 	linkedinProfileUrl: string;
@@ -17,6 +18,13 @@ export type Founder = {
 
 export enum Icons {
 	Organization = '/lotties/organization.json',
+	Loading = '/lotties/loading.json',
 	Attachment = '/lotties/attachment.json',
 	Check = '/lotties/check.json'
+}
+
+export enum TableAlignment {
+	LEFT = 'left',
+	CENTER = 'center',
+	RIGHT = 'right',
 }

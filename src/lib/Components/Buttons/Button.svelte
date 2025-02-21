@@ -1,44 +1,52 @@
 <script lang="ts">
 	import chroma from 'chroma-js';
 
-	export let type: 'button' | 'submit' | 'reset' | null = 'button';
-	export let background: String;
-	export let form: string = '';
+	type ButtonProps = {
+		children?: any;
+		type?: 'button' | 'submit';
+		background?: string;
+		form?: string;
+		onclick?: () => void;
+		hasBorder?: boolean;
+		disabled?: boolean;
+	};
 
-	export let onClick: () => void;
-	export let hasBorder: boolean = true;
+	let { children, type, background, form, onclick, hasBorder, disabled }: ButtonProps = $props();
 
 	let buttonElement: HTMLButtonElement;
-	let resolvedBackground: string;
-	let borderColor: string;
-	let hoverBackgroundColor: string;
-	let isHovered: boolean;
+	let resolvedBackground = $state('');
+	let borderColor = $state('');
+	let hoverBackgroundColor = $state('');
+	let isHovered = $state(false);
 
 	function resolveColor(): string {
 		const style = getComputedStyle(buttonElement);
 		return style.backgroundColor;
 	}
 
-	$: if (buttonElement) {
-		resolvedBackground = resolveColor();
-		hoverBackgroundColor = chroma(resolvedBackground).brighten(0.3).hex();
-		borderColor = hasBorder ? hoverBackgroundColor : 'transparent';
-	}
+	$effect(() => {
+		if (buttonElement) {
+			resolvedBackground = resolveColor();
+			hoverBackgroundColor = chroma(resolvedBackground).brighten(0.3).hex();
+			borderColor = hasBorder ? hoverBackgroundColor : 'transparent';
+		}
+	});
 </script>
 
 <button
 	bind:this={buttonElement}
-	on:mouseover={() => (isHovered = true)}
-	on:mouseout={() => (isHovered = false)}
-	on:focus={() => (isHovered = false)}
-	on:blur={() => (isHovered = false)}
+	onmouseover={() => (isHovered = true)}
+	onmouseout={() => (isHovered = false)}
+	onfocus={() => (isHovered = false)}
+	onblur={() => (isHovered = false)}
 	style:background={isHovered ? hoverBackgroundColor : background}
 	style:border-color={borderColor}
-	on:click={onClick}
+	{onclick}
 	{type}
 	{form}
+	{disabled}
 >
-	<slot></slot>
+	{@render children?.()}
 </button>
 
 <style>
@@ -53,7 +61,7 @@
 		transition: background 0.2s;
 		font-size: 0.75rem;
 		height: 100%;
-		padding: 0px 8px;
+		padding: 5px;
 
 		box-shadow:
 			lch(0 0 0 / 0.06) 0px 4px 4px -1px,

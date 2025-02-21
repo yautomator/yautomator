@@ -13,6 +13,7 @@
 }
 
 :root {
+	--secondary-button-background-color: #1e1e20;
 	--main-background-color: #101011;
 	--secondary-background-color: #090909;
 	--border-color: #24252a;

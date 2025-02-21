@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { navigating } from '$app/state';
+	import NProgress from 'nprogress';
+	import 'nprogress/nprogress.css';
 	import type { Snippet } from 'svelte';
 	import { onDestroy, setContext } from 'svelte';
 	import '../globals.css';
 	import Sidebar from '../lib/Components/Sidebar/Sidebar.svelte';
 
 	let header = $state<Snippet[]>([]);
-	let footer = $state<Snippet[]>([]);
 
 	setContext('layout', {
 		setHeader(snippet: Snippet) {
@@ -13,16 +15,21 @@
 			return onDestroy(() => {
 				header.pop();
 			});
-		},
-		setFooter(snippet: Snippet) {
-			footer.push(snippet);
-			return onDestroy(() => {
-				footer.pop();
-			});
 		}
 	});
 
+	NProgress.configure({ showSpinner: false });
+
 	let { children }: { children: Snippet } = $props();
+
+	$effect(() => {
+		if (navigating.to) {
+			NProgress.start();
+		}
+		if (!navigating.to) {
+			NProgress.done();
+		}
+	});
 </script>
 
 <Sidebar />

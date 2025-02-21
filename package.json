@@ -18,6 +18,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@types/chroma-js": "^2.4.5",
 		"@types/node": "^22.13.1",
+		"@types/nprogress": "^0.2.3",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
@@ -36,6 +37,7 @@
 		"@lordicon/element": "^1.10.1",
 		"chroma-js": "^3.1.2",
 		"lottie-web": "^5.12.2",
-		"lucide-svelte": "^0.468.0"
+		"lucide-svelte": "^0.468.0",
+		"nprogress": "^0.2.0"
 	}
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import lottie from 'lottie-web';
+	import { onMount } from 'svelte';
 
 	onMount(async () => {
 		const { defineElement } = await import('@lordicon/element');
@@ -10,6 +10,7 @@
 
 	export let src: string;
 	export let size: string = '25px';
+	export let trigger: string = 'hover';
 </script>
 
-<lord-icon {src} style:width={size} style:height={size} trigger="hover"></lord-icon>
+<lord-icon {src} style:width={size} style:height={size} {trigger}></lord-icon>

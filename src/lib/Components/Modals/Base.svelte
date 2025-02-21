@@ -1,31 +1,17 @@
 <script lang="ts">
-	import { layout } from '$lib/States/layout.svelte';
-	import { X } from 'lucide-svelte';
-	import Button from '../Buttons/Button.svelte';
-	import IconButton from '../Buttons/IconButton.svelte';
+	let { header, children, footer, ref = $bindable() } = $props();
 
-	let { header, children, footer } = $props();
-
-	let dialog: HTMLDialogElement;
-
-	$effect(() => {
-		if (layout.showAddFounderModal) dialog.showModal();
-	});
-
-	const close = () => {
-		dialog.close();
-		layout.showAddFounderModal = false;
+	const close = (e: Event) => {
+		if (e.target === ref) ref.close();
 	};
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 
-<dialog bind:this={dialog} onclose={close}>
+<dialog bind:this={ref} onclick={close}>
 	<header>
 		{@render header?.()}
-
-		<IconButton onClick={close} icon={X} />
 	</header>
 
 	<section>

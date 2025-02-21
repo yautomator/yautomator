@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let value: string;
+	export let value: string = '';
 	export let label: string;
 	export let required: boolean = false;
 	export let name: string;
@@ -9,7 +9,8 @@
 </script>
 
 <div>
-	<input {type} {name} {required} bind:value id={name}/>
+	<!-- svelte-ignore a11y_autocomplete_valid -->
+	<input {type} name={`${name}X`} {required} bind:value autocomplete="x" />
 	<label class:floating={hasContent} for={name}>{label}</label>
 </div>
 
