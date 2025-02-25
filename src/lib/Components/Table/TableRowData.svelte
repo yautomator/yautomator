@@ -15,6 +15,7 @@
 		white-space: nowrap;
 
 		padding-left: 30px;
+		font-size: 0.8125rem;
 
 		&:last-child {
 			padding-right: 30px;

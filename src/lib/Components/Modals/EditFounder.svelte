@@ -8,7 +8,7 @@
 
 	import { onMount } from 'svelte';
 	import Breadcrumb from '../Breadcrumb.svelte';
-	import Button from '../Buttons/Button.svelte';
+	import PrimaryButton from '../Buttons/PrimaryButton.svelte';
 	import FlexGroup from '../FlexGroup.svelte';
 	import Startup from '../Icons/Startup.svelte';
 	import FileDropInput from '../Inputs/FileDropInput.svelte';
@@ -75,22 +75,27 @@
 		<FlexGroup>
 			<FloatingInput
 				type="text"
-				label="First name"
+				placeholder="First name"
 				name="firstName"
 				bind:value={founder.firstName}
 			/>
-			<FloatingInput type="text" label="Last name" name="lastName" bind:value={founder.lastName} />
+			<FloatingInput
+				type="text"
+				placeholder="Last name"
+				name="lastName"
+				bind:value={founder.lastName}
+			/>
 		</FlexGroup>
 
 		<FlexGroup>
 			<FloatingInput
 				type="text"
-				label="Country"
+				placeholder="Country"
 				name="country"
 				bind:value={founder.countryOfLiving}
 			/>
 			<FloatingInput
-				label="LinkedIn URL"
+				placeholder="LinkedIn URL"
 				name="linkedinUrl"
 				bind:value={founder.linkedinProfileUrl}
 				type="url"
@@ -98,22 +103,16 @@
 		</FlexGroup>
 
 		<FlexGroup>
-			<FloatingInput type="text" label="Role" name="role" bind:value={founder.role} />
-			<FloatingInput type="email" label="Email" name="email" bind:value={founder.email} />
+			<FloatingInput type="text" placeholder="Role" name="role" bind:value={founder.role} />
+			<FloatingInput type="email" placeholder="Email" name="email" bind:value={founder.email} />
 		</FlexGroup>
 
-		<FloatingTextarea label="Summary" name="summary" bind:value={founder.summary} />
+		<FloatingTextarea placeholder="Summary" name="summary" bind:value={founder.summary} />
 		<FileDropInput name="cv" />
 	</form>
 
 	{#snippet footer()}
-		<Button type="submit" form="founder" background="#5e6ad2" disabled={isLoading}>
-			{#if isLoading}
-				<span>Loading...</span>
-			{:else}
-				<span>Save changes</span>
-			{/if}
-		</Button>
+		<PrimaryButton type="submit" form="founder" disabled={isLoading}>Save changes</PrimaryButton>
 	{/snippet}
 </Base>
 

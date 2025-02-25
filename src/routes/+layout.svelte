@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { navigating } from '$app/state';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import Selector from '$lib/Components/Sidebar/Selector.svelte';
+	import Sidebar from '$lib/Components/Sidebar/Sidebar.svelte';
+	import SidebarGroup from '$lib/Components/Sidebar/SidebarGroup.svelte';
+	import SidebarLinkItem from '$lib/Components/Sidebar/SidebarLinkItem.svelte';
+	import SidebarList from '$lib/Components/Sidebar/SidebarList.svelte';
+	import { Box, DollarSign, Egg, Rocket, Target, Telescope, Users } from 'lucide-svelte';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
 	import type { Snippet } from 'svelte';
 	import { onDestroy, setContext } from 'svelte';
 	import '../globals.css';
-	import Sidebar from '$lib/Components/Sidebar/Sidebar.svelte';
-	import SidebarLinkItem from '$lib/Components/Sidebar/SidebarLinkItem.svelte';
-	import { Building2, DollarSign, Egg, Rocket, Target, Telescope, Users, Box } from 'lucide-svelte';
-	import SidebarGroup from '$lib/Components/Sidebar/SidebarGroup.svelte';
-	import SidebarItemList from '$lib/Components/Sidebar/SidebarList.svelte';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import SidebarList from '$lib/Components/Sidebar/SidebarList.svelte';
 
 	let header = $state<Snippet[]>([]);
 
@@ -38,41 +37,43 @@
 </script>
 
 <Sidebar>
-	{#snippet header()}{/snippet}
+	{#snippet header()}
+		<Selector />
+	{/snippet}
 
 	{#snippet body()}
 		<SidebarList>
 			<SidebarLinkItem href="/startup/my-startup">
-				<Box size={16} />
-				<p>Inbox</p>
-			</SidebarLinkItem>
-			<SidebarLinkItem href="/startup/founders">
-				<Users size={16} />
+				<Box size={15} strokeWidth={2} />
 				My issues
 			</SidebarLinkItem>
+			<SidebarLinkItem href="/startup/founders">
+				<Users size={15} strokeWidth={2} />
+				Founders
+			</SidebarLinkItem>
 			<SidebarLinkItem href="/startup/product">
-				<Target size={16} />
+				<Target size={15} strokeWidth={2} />
 				Drafts
 			</SidebarLinkItem>
 
-			<!-- <SidebarGroup label="Apply to organizations">
+			<SidebarGroup label="Apply to organizations">
 				<SidebarLinkItem href="/organizations/accelerators">
-					<Rocket size={15} />
+					<Rocket size={15} strokeWidth={2} />
 					Accelerators
 				</SidebarLinkItem>
 				<SidebarLinkItem href="/organizations/incubators">
-					<Egg size={15} />
+					<Egg size={15} strokeWidth={2} />
 					Incubators
 				</SidebarLinkItem>
 				<SidebarLinkItem href="/organizations/venture-capital">
-					<DollarSign size={15} />
+					<DollarSign size={15} strokeWidth={2} />
 					Venture capital
 				</SidebarLinkItem>
 				<SidebarLinkItem href="/organizations/product-hunt">
-					<Telescope size={15} />
+					<Telescope size={15} strokeWidth={2} />
 					Product Hunt
 				</SidebarLinkItem>
-			</SidebarGroup> -->
+			</SidebarGroup>
 		</SidebarList>
 	{/snippet}
 </Sidebar>
@@ -102,6 +103,8 @@
 		border: 0.5px solid var(--border-color);
 		background-color: var(--main-background-color);
 		overflow: hidden;
+		margin: 8px 8px 8px 0px;
+		border-radius: 4px;
 	}
 
 	header {

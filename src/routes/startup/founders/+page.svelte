@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { TableAlignment } from '$lib/Common';
-	import Button from '$lib/Components/Buttons/Button.svelte';
 	import IconButton from '$lib/Components/Buttons/IconButton.svelte';
-	import NoFounders from '$lib/Components/Founders/NoFounders.svelte';
+	import SecondaryButton from '$lib/Components/Buttons/SecondaryButton.svelte';
 	import LucideIcon from '$lib/Components/Icons/LucideIcon.svelte';
 	import AddFounder from '$lib/Components/Modals/AddFounder.svelte';
 	import EditFounder from '$lib/Components/Modals/EditFounder.svelte';
@@ -11,12 +10,11 @@
 	import TableColumnLabel from '$lib/Components/Table/TableColumnLabel.svelte';
 	import TableRow from '$lib/Components/Table/TableRow.svelte';
 	import TableRowData from '$lib/Components/Table/TableRowData.svelte';
-	import { layout } from '$lib/States/layout.svelte';
 	import { modals } from '$lib/States/modals.svelte';
 	import { CircleCheck, CircleDashed, FileCheck, FileQuestion, Plus, Trash } from 'lucide-svelte';
+	import NProgress from 'nprogress';
 	import { getContext, type Snippet } from 'svelte';
 	import type { PageProps, SubmitFunction } from './$types';
-	import NProgress from 'nprogress';
 
 	let { data }: PageProps = $props();
 	let { setHeader } = getContext<{ setHeader: (header: Snippet) => void }>('layout');
@@ -51,10 +49,10 @@
 
 {#snippet header()}
 	<div class="header">
-		<Button onclick={openAddFounderModal} background="#1c1d20">
-			<LucideIcon icon={Plus} />
+		<SecondaryButton onclick={openAddFounderModal}>
+			<Plus size={14} strokeWidth={2.5} />
 			<span>Add founder</span>
-		</Button>
+		</SecondaryButton>
 	</div>
 {/snippet}
 
@@ -98,7 +96,7 @@
 		{/snippet}
 	</Table>
 {:else}
-	<NoFounders />
+	<p class="no-founders">No founders found</p>
 {/if}
 
 <style>

@@ -11,5 +11,6 @@
 		list-style: none;
 		display: flex;
 		flex-direction: column;
+		gap: 2px;
 	}
 </style>

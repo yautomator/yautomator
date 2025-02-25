@@ -1,22 +1,17 @@
 <script lang="ts">
-	export let value: string = '';
-	export let label: string;
-	export let required: boolean = false;
-	export let name: string;
+	type TextareaProps = {
+		value?: string;
+		required?: boolean;
+		name: string;
+		placeholder: string;
+	};
 
-	$: hasContent = value?.length > 0;
+	let { value = $bindable(), ...props }: TextareaProps = $props();
 </script>
 
-<div>
-	<textarea {name} {required} bind:value id={name}></textarea>
-	<label class:floating={hasContent} for={name}>{label}</label>
-</div>
+<textarea {...props} bind:value></textarea>
 
 <style>
-	div {
-		position: relative;
-	}
-
 	textarea {
 		width: 100%;
 		padding: 12px;
@@ -27,20 +22,6 @@
 		outline: none;
 		transition: all 0.2s;
 		resize: none;
-	}
-
-	label {
-		position: absolute;
-		left: 12px;
-		top: 18px;
-		transform: translateY(-50%);
-		color: var(--secondary-text-color);
-		transition: all 0.2s;
-		pointer-events: none;
-	}
-
-	textarea:focus ~ label,
-	label.floating {
-		top: 0;
+		font-size: 0.8125rem;
 	}
 </style>

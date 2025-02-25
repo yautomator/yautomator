@@ -62,7 +62,7 @@
 		bind:this={fileInput}
 		on:change={handleChange}
 		hidden
-		accept=".pdf"
+		accept=".pdf, .doc, .docx"
 	/>
 	<LucideIcon icon={FileUp} size={20} />
 	<label for={name} class="hint">{fileName || 'Drop your CV or click to browse'}</label>
@@ -82,18 +82,19 @@
 		background: var(--input-background-color);
 
 		&:hover {
-			border-color: #5e6ad2;
-			background: rgba(94, 106, 210, 0.1);
+			border-color: var(--file-input-hover-border-color);
+			background: var(--file-input-hover-background-color);
 		}
 
 		label {
 			color: var(--secondary-text-color);
 			pointer-events: none;
+			font-size: 0.8125rem;
 		}
 	}
 
 	.isDragging {
-		border-color: #5e6ad2;
-		background: #5e6ad21a;
+		border-color: var(--primary-color);
+		background: var(--primary-color-hover);
 	}
 </style>

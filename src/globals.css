@@ -1,5 +1,8 @@
-:root {
-	font-size: 10px;
+@font-face {
+	font-family: 'Inter Variable';
+	src: url('/fonts/Inter-Variable.woff2') format('woff2');
+	font-weight: 100 900;
+	font-style: normal;
 }
 
 * {
@@ -25,6 +28,14 @@
 	--sidebar-link-item-hover-background-color: lch(7 2.28 272.89);
 	--sidebar-link-item-icon-color: lch(61.683% 1 272 / 1);
 	--sidebar-link-item-icon-color-hover: lch(100 0 272);
+	
+	--primary-button-background-color: #0083dae8;
+	--primary-button-hover-background-color: #0092ec;
+
+	--file-input-hover-background-color: #0083da0a;
+	--file-input-hover-border-color: #0083dae8;
+
+	--select-item-background-color: #1c1d1f;
 }
 
 body {

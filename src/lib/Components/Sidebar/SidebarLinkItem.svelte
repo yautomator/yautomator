@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { Component, SvelteComponent } from 'svelte';
-	import type { IconProps } from 'lucide-svelte';
 
 	let { children, href }: { children?: Snippet; href: string } = $props();
 </script>
@@ -15,13 +13,13 @@
 <style>
 	li {
 		a {
-			text-decoration: none;
 			display: flex;
 			place-items: center;
 			gap: 8px;
 
 			color: var(--main-text-color);
-			font-size: 1.3rem;
+			font-size: 0.8125rem;
+			text-decoration: none;
 
 			height: 28px;
 			border-radius: 4px;

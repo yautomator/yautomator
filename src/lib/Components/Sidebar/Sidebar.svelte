@@ -7,20 +7,20 @@
 </script>
 
 <nav>
-	<div>
+	<section>
 		{@render header?.()}
-		{@render body?.()}
-	</div>
+	</section>
 
-	{@render footer?.()}
+	<section>
+		{@render body?.()}
+	</section>
+
+	<section>
+		{@render footer?.()}
+	</section>
 </nav>
 
 <style>
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
 	nav {
 		grid-area: leftbar;
 		height: 100vh;
@@ -31,6 +31,16 @@
 
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		gap: 14px;
+
+		section {
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+		}
+
+		section:last-child {
+			margin-top: auto;
+		}
 	}
 </style>

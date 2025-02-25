@@ -2,16 +2,19 @@
 	import { enhance } from '$app/forms';
 	import { modals } from '$lib/States/modals.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { X } from 'lucide-svelte';
+	import { Plus, X } from 'lucide-svelte';
+	import NProgress from 'nprogress';
 	import { onMount } from 'svelte';
 	import Breadcrumb from '../Breadcrumb.svelte';
-	import Button from '../Buttons/Button.svelte';
 	import IconButton from '../Buttons/IconButton.svelte';
+	import PrimaryButton from '../Buttons/PrimaryButton.svelte';
 	import FlexGroup from '../FlexGroup.svelte';
-	import Startup from '../Icons/Startup.svelte';
+	import StartupIcon from '../Icons/Startup.svelte';
+	import Select from '../Inputs/Country.svelte';
+	import FileDropInput from '../Inputs/FileDropInput.svelte';
 	import FloatingInput from '../Inputs/FloatingInput.svelte';
+	import FloatingTextarea from '../Inputs/FloatingTextarea.svelte';
 	import Base from './Base.svelte';
-	import NProgress from 'nprogress';
 
 	let isLoading = $state(false);
 	let ref = $state<HTMLDialogElement>();
@@ -40,13 +43,15 @@
 	const close = () => {
 		modals.addFounderModal?.close();
 	};
+
+	let selectedCountry = $state('');
 </script>
 
 <Base bind:ref>
 	{#snippet header()}
 		<Breadcrumb>
 			{#snippet base()}
-				<Startup />
+				<StartupIcon />
 			{/snippet}
 			{#snippet current()}
 				<span>New founder</span>
@@ -66,32 +71,29 @@
 		action="?/create"
 	>
 		<FlexGroup>
-			<FloatingInput type="text" label="First name" name="firstName" />
-			<FloatingInput type="text" label="Last name" name="lastName" />
+			<FloatingInput type="text" placeholder="First name" name="firstName" />
+			<FloatingInput type="text" placeholder="Last name" name="lastName" />
 		</FlexGroup>
-
-		<!-- <FlexGroup>
-			<FloatingInput type="text" label="Country of living" name="countryOfLiving" />
-			<FloatingInput label="LinkedIn URL" name="linkedinProfileUrl" type="url" />
-		</FlexGroup> -->
 
 		<FlexGroup>
-			<FloatingInput type="text" label="Role" name="role" />
-			<FloatingInput type="email" label="Email" name="email" />
+			<Select placeholder="Country of living" />
+			<FloatingInput placeholder="LinkedIn URL" name="linkedinProfileUrl" type="url" />
 		</FlexGroup>
 
-		<!-- <FloatingTextarea label="Summary" name="summary" />
-		<FileDropInput name="cv" /> -->
+		<FlexGroup>
+			<FloatingInput type="text" placeholder="Role" name="role" />
+			<FloatingInput type="email" placeholder="Email" name="email" />
+		</FlexGroup>
+
+		<FloatingTextarea placeholder="Summary" name="summary" />
+		<FileDropInput name="cv" />
 	</form>
 
 	{#snippet footer()}
-		<Button type="submit" form="founder" background="#5e6ad2" disabled={isLoading}>
-			{#if isLoading}
-				<span>Loading...</span>
-			{:else}
-				<span>Add founder</span>
-			{/if}
-		</Button>
+		<PrimaryButton type="submit" form="founder" disabled={isLoading}>
+			<Plus size={14} strokeWidth={2.5} />
+			<span>Add founder</span>
+		</PrimaryButton>
 	{/snippet}
 </Base>
 

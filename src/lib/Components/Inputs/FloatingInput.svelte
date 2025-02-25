@@ -1,25 +1,18 @@
 <script lang="ts">
-	export let value: string = '';
-	export let label: string;
-	export let required: boolean = false;
-	export let name: string;
-	export let type: string;
+	type InputProps = {
+		value?: string;
+		required?: boolean;
+		name: string;
+		type: string;
+		placeholder: string;
+	};
 
-	$: hasContent = value?.length > 0;
+	let { value = $bindable(), ...props }: InputProps = $props();
 </script>
 
-<div>
-	<!-- svelte-ignore a11y_autocomplete_valid -->
-	<input {type} name={`${name}X`} {required} bind:value autocomplete="x" />
-	<label class:floating={hasContent} for={name}>{label}</label>
-</div>
+<input {...props} autocomplete="off" bind:value />
 
 <style>
-	div {
-		position: relative;
-		flex-grow: 1;
-	}
-
 	input {
 		width: 100%;
 		padding: 12px;
@@ -29,20 +22,15 @@
 		color: var(--main-text-color);
 		outline: none;
 		transition: all 0.2s;
-	}
+		font-size: 0.8125rem;
 
-	label {
-		position: absolute;
-		left: 12px;
-		top: 50%;
-		transform: translateY(-50%);
-		color: var(--secondary-text-color);
-		transition: all 0.2s;
-		pointer-events: none;
-	}
-
-	input:focus ~ label,
-	label.floating {
-		top: 0;
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: var(--main-text-color);
+			box-shadow: inset 0 0 20px 20px var(--input-background-color);
+		}
 	}
 </style>
