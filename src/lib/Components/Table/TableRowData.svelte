@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { TableAlignment } from '$lib/Common';
 
-	let {
-		children,
-		align = TableAlignment.LEFT
-	}: {
-		children?: any;
-		align?: TableAlignment;
-	} = $props();
+	let { children, align = TableAlignment.LEFT }: { children?: any; align?: TableAlignment } =
+		$props();
 </script>
 
 <td {align}>
@@ -17,7 +12,6 @@
 <style>
 	td {
 		height: 48px;
-		font-size: 0.8125rem;
 		white-space: nowrap;
 
 		padding-left: 30px;

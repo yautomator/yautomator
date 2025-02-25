@@ -16,6 +16,7 @@
 	import { CircleCheck, CircleDashed, FileCheck, FileQuestion, Plus, Trash } from 'lucide-svelte';
 	import { getContext, type Snippet } from 'svelte';
 	import type { PageProps, SubmitFunction } from './$types';
+	import NProgress from 'nprogress';
 
 	let { data }: PageProps = $props();
 	let { setHeader } = getContext<{ setHeader: (header: Snippet) => void }>('layout');
@@ -30,7 +31,7 @@
 
 	const handleDeleteFounder: SubmitFunction = () => {
 		isLoadingDelete = true;
-		layout.generalSSRLoading = true;
+		NProgress.start();
 
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
@@ -40,7 +41,7 @@
 			}
 
 			isLoadingDelete = false;
-			layout.generalSSRLoading = false;
+			NProgress.done();
 		};
 	};
 </script>
@@ -61,11 +62,9 @@
 	<Table data={data.founders}>
 		{#snippet header()}
 			<TableColumnLabel>Name</TableColumnLabel>
-			<TableColumnLabel>Summary</TableColumnLabel>
 			<TableColumnLabel>CV</TableColumnLabel>
 			<TableColumnLabel>Linkedin URL</TableColumnLabel>
 			<TableColumnLabel>Role</TableColumnLabel>
-			<TableColumnLabel>Country</TableColumnLabel>
 			<TableColumnLabel />
 		{/snippet}
 
@@ -73,12 +72,6 @@
 			{#each data.founders as founder (founder)}
 				<TableRow>
 					<TableRowData>{founder.firstName} {founder.lastName}</TableRowData>
-					<TableRowData>
-						<LucideIcon
-							icon={founder.summary ? CircleCheck : CircleDashed}
-							color={founder.summary ? undefined : '#9f9837'}
-						/>
-					</TableRowData>
 					<TableRowData>
 						<LucideIcon
 							icon={founder.cvUrl ? FileCheck : FileQuestion}
@@ -92,7 +85,6 @@
 						/>
 					</TableRowData>
 					<TableRowData>{founder.role}</TableRowData>
-					<TableRowData>{founder.countryOfLiving}</TableRowData>
 					<TableRowData align={TableAlignment.RIGHT}>
 						<form method="POST" action="?/delete" use:enhance={handleDeleteFounder}>
 							<input type="hidden" name="id" value={founder._id} />

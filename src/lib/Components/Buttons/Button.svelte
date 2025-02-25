@@ -59,7 +59,6 @@
 		justify-content: space-between;
 		border-radius: 4px;
 		transition: background 0.2s;
-		font-size: 0.75rem;
 		height: 100%;
 		padding: 5px;
 

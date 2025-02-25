@@ -29,7 +29,6 @@
 		}
 
 		span {
-			font-size: 0.75rem;
 			text-wrap: nowrap;
 		}
 	}

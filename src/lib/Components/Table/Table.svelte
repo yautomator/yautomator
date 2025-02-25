@@ -15,9 +15,11 @@
 	table {
 		width: 100%;
 		border-collapse: collapse;
+		font-size: 1.3rem;
 
 		thead {
 			height: 30px;
+			font-size: 1.2rem;
 		}
 	}
 </style>

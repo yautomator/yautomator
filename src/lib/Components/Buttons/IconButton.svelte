@@ -25,7 +25,6 @@
 		border-radius: 4px;
 		background: none;
 		transition: background 0.2s;
-		font-size: 0.75rem;
 		height: 100%;
 		padding: 8px;
 

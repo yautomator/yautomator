@@ -15,6 +15,5 @@
 		display: flex;
 		place-items: center;
 		gap: 5px;
-		font-size: 0.75rem;
 	}
 </style>

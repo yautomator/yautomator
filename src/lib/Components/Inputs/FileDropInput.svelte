@@ -88,7 +88,6 @@
 
 		label {
 			color: var(--secondary-text-color);
-			font-size: 0.8125rem;
 			pointer-events: none;
 		}
 	}

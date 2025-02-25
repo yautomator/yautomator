@@ -11,23 +11,24 @@
 	import Startup from '../Icons/Startup.svelte';
 	import FloatingInput from '../Inputs/FloatingInput.svelte';
 	import Base from './Base.svelte';
+	import NProgress from 'nprogress';
 
 	let isLoading = $state(false);
 	let ref = $state<HTMLDialogElement>();
-	let formRef: HTMLFormElement;
 
 	const handleNewFounderResponse: SubmitFunction = () => {
 		isLoading = true;
+		NProgress.start();
 
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
-				formRef.reset();
 				modals.addFounderModal?.close();
 				await update();
 			} else {
 				alert('Failed to add founder. Please try again.');
 			}
 
+			NProgress.done();
 			isLoading = false;
 		};
 	};
@@ -61,7 +62,6 @@
 		id="founder"
 		method="POST"
 		enctype="multipart/form-data"
-		bind:this={formRef}
 		use:enhance={handleNewFounderResponse}
 		action="?/create"
 	>

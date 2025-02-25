@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { ChevronsUpDown } from 'lucide-svelte';
+	let { children } = $props();
 </script>
 
 <ul>
-	<slot></slot>
+	{@render children?.()}
 </ul>
 
 <style>
@@ -11,6 +11,5 @@
 		list-style: none;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
 	}
 </style>

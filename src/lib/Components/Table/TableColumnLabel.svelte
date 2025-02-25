@@ -9,7 +9,6 @@
 <style>
 	th {
 		border-bottom: 0.5px solid var(--border-color);
-		font-size: 0.75rem;
 		font-weight: 350;
 		padding-left: 30px;
 		color: #949597;

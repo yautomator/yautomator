@@ -23,7 +23,6 @@
 		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		background: var(--input-background-color);
-		font-size: 0.8125rem;
 		color: var(--main-text-color);
 		outline: none;
 		transition: all 0.2s;
@@ -36,7 +35,6 @@
 		top: 18px;
 		transform: translateY(-50%);
 		color: var(--secondary-text-color);
-		font-size: 0.8125rem;
 		transition: all 0.2s;
 		pointer-events: none;
 	}
@@ -44,6 +42,5 @@
 	textarea:focus ~ label,
 	label.floating {
 		top: 0;
-		font-size: 0.75rem;
 	}
 </style>

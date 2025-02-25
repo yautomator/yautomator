@@ -25,7 +25,7 @@ export const load: PageServerLoad = async () => {
 export const actions = {
 	create: async ({ request }: RequestEvent): Promise<{ success: boolean }> => {
 		console.log('Handling new founder action');
-		
+
 		const formData = await request.formData();
 		console.log(formData);
 		const cvFile = formData.get('cv') as File | null;
@@ -55,7 +55,7 @@ export const actions = {
 			body: JSON.stringify(newFounderData)
 		});
 
-		
+
 		console.log(await response.json());
 
 		if (!response.ok) {
@@ -65,12 +65,7 @@ export const actions = {
 		return { success: true };
 	},
 
-	edit: async ({ request }: RequestEvent): Promise<{ success: boolean }> => {
-		console.log('Handling edit founder action');
-
-		const formData = await request.formData();
-		const cvFile = formData.get('cv') as File | null;
-
+	edit: async (): Promise<{ success: boolean }> => {
 		return { success: true };
 	},
 
