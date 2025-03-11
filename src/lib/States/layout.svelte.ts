@@ -1,7 +1,11 @@
-import type { Founder } from '$lib/Common';
+import type { Founder, Startup } from '$lib/utils/common';
 
-export const layout = $state({
-	showAddFounderModal: false,
-	selectedFounder: null as Founder | null,
-	generalSSRLoading: false
+type LayoutType = {
+	selectedFounder: Founder | null;
+	selectedStartup: Startup | null;
+};
+
+export const layout = $state<LayoutType>({
+	selectedFounder: null,
+	selectedStartup: null
 });

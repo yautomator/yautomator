@@ -15,7 +15,7 @@
 		a {
 			display: flex;
 			place-items: center;
-			gap: 8px;
+			gap: 6px;
 
 			color: var(--main-text-color);
 			font-size: 0.8125rem;

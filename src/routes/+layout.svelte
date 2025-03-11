@@ -1,31 +1,31 @@
 <script lang="ts">
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import Selector from '$lib/Components/Sidebar/Selector.svelte';
-	import Sidebar from '$lib/Components/Sidebar/Sidebar.svelte';
-	import SidebarGroup from '$lib/Components/Sidebar/SidebarGroup.svelte';
-	import SidebarLinkItem from '$lib/Components/Sidebar/SidebarLinkItem.svelte';
-	import SidebarList from '$lib/Components/Sidebar/SidebarList.svelte';
-	import { Box, DollarSign, Egg, Rocket, Target, Telescope, Users } from 'lucide-svelte';
+	import Sidebar from '$lib/components/sidebar/Sidebar.svelte';
+	import SidebarBody from '$lib/components/sidebar/SidebarBody.svelte';
+	import SidebarGroup from '$lib/components/sidebar/SidebarGroup.svelte';
+	import SidebarHeader from '$lib/components/sidebar/SidebarHeader.svelte';
+	import SidebarLinkItem from '$lib/components/sidebar/SidebarLinkItem.svelte';
+	import StartupSwitcher from '$lib/components/sidebar/StartupSwitcher.svelte';
+	import { layout } from '$lib/states/layout.svelte';
+	import {
+		Box,
+		BriefcaseBusiness,
+		DollarSign,
+		Egg,
+		Link2,
+		Rocket,
+		Telescope,
+		Users
+	} from 'lucide-svelte';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
-	import type { Snippet } from 'svelte';
-	import { onDestroy, setContext } from 'svelte';
-	import '../globals.css';
+	import { onMount } from 'svelte';
+	import '../app.css';
+	import type { LayoutProps } from './$types';
 
-	let header = $state<Snippet[]>([]);
-
-	setContext('layout', {
-		setHeader(snippet: Snippet) {
-			header.push(snippet);
-			return onDestroy(() => {
-				header.pop();
-			});
-		}
-	});
+	let { data, children }: LayoutProps = $props();
 
 	NProgress.configure({ showSpinner: false });
-
-	let { children }: { children: Snippet } = $props();
 
 	beforeNavigate(() => {
 		NProgress.start();
@@ -34,64 +34,63 @@
 	afterNavigate(() => {
 		NProgress.done();
 	});
+
+	onMount(() => {
+		const FIRST_STARTUP_INDEX = 0;
+		layout.selectedStartup = data.startups[FIRST_STARTUP_INDEX];
+	});
 </script>
 
 <Sidebar>
-	{#snippet header()}
-		<Selector />
-	{/snippet}
-
-	{#snippet body()}
-		<SidebarList>
-			<SidebarLinkItem href="/startup/my-startup">
-				<Box size={15} strokeWidth={2} />
-				My issues
+	<SidebarHeader>
+		<StartupSwitcher />
+	</SidebarHeader>
+	<SidebarBody>
+		<SidebarGroup label="Fill startup form">
+			<SidebarLinkItem href="/startup/basic-information">
+				<Box size={15} strokeWidth={3} />
+				Basic information
+			</SidebarLinkItem>
+			<SidebarLinkItem href="/startup/business-information">
+				<BriefcaseBusiness size={15} strokeWidth={3} />
+				Business information
+			</SidebarLinkItem>
+			<SidebarLinkItem href="/startup/media-and-links">
+				<Link2 size={15} strokeWidth={3} />
+				Media & Links
 			</SidebarLinkItem>
 			<SidebarLinkItem href="/startup/founders">
-				<Users size={15} strokeWidth={2} />
+				<Users size={15} strokeWidth={3} />
 				Founders
 			</SidebarLinkItem>
-			<SidebarLinkItem href="/startup/product">
-				<Target size={15} strokeWidth={2} />
-				Drafts
+		</SidebarGroup>
+		<SidebarGroup label="Apply to organizations">
+			<SidebarLinkItem href="/organizations/accelerators">
+				<Rocket size={15} strokeWidth={2} />
+				Accelerators
 			</SidebarLinkItem>
-
-			<SidebarGroup label="Apply to organizations">
-				<SidebarLinkItem href="/organizations/accelerators">
-					<Rocket size={15} strokeWidth={2} />
-					Accelerators
-				</SidebarLinkItem>
-				<SidebarLinkItem href="/organizations/incubators">
-					<Egg size={15} strokeWidth={2} />
-					Incubators
-				</SidebarLinkItem>
-				<SidebarLinkItem href="/organizations/venture-capital">
-					<DollarSign size={15} strokeWidth={2} />
-					Venture capital
-				</SidebarLinkItem>
-				<SidebarLinkItem href="/organizations/product-hunt">
-					<Telescope size={15} strokeWidth={2} />
-					Product Hunt
-				</SidebarLinkItem>
-			</SidebarGroup>
-		</SidebarList>
-	{/snippet}
+			<SidebarLinkItem href="/organizations/incubators">
+				<Egg size={15} strokeWidth={2} />
+				Incubators
+			</SidebarLinkItem>
+			<SidebarLinkItem href="/organizations/venture-capital">
+				<DollarSign size={15} strokeWidth={2} />
+				Venture capital
+			</SidebarLinkItem>
+			<SidebarLinkItem href="/organizations/launch">
+				<Telescope size={15} strokeWidth={2} />
+				Launch
+			</SidebarLinkItem>
+		</SidebarGroup>
+	</SidebarBody>
 </Sidebar>
 
-<div class="content">
-	<header>
-		{#if header.length}
-			{@render header[header.length - 1]?.()}
-		{/if}
-	</header>
-
-	<main>
-		{@render children()}
-	</main>
+<div>
+	{@render children()}
 </div>
 
 <style>
-	.content {
+	div {
 		grid-area: content;
 
 		display: grid;
@@ -105,17 +104,5 @@
 		overflow: hidden;
 		margin: 8px 8px 8px 0px;
 		border-radius: 4px;
-	}
-
-	header {
-		grid-area: header;
-		border-bottom: 0.5px solid var(--border-color);
-		height: 40px;
-		display: flex;
-	}
-
-	main {
-		grid-area: main;
-		overflow: auto;
 	}
 </style>

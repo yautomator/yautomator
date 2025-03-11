@@ -1,27 +1,21 @@
 <script lang="ts">
-	type InputProps = {
-		value?: string;
-		required?: boolean;
-		name: string;
-		type: string;
-		placeholder: string;
-	};
+	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	let { value = $bindable(), ...props }: InputProps = $props();
+	let { ...nativeProps }: HTMLInputAttributes = $props();
 </script>
 
-<input {...props} autocomplete="off" bind:value />
+<input type="text" {...nativeProps} />
 
 <style>
 	input {
-		width: 100%;
+		color-scheme: dark;
+
 		padding: 12px;
 		border: 1px solid var(--border-color);
-		border-radius: 4px;
+		border-radius: 5px;
 		background: var(--input-background-color);
 		color: var(--main-text-color);
 		outline: none;
-		transition: all 0.2s;
 		font-size: 0.8125rem;
 
 		&:-webkit-autofill,

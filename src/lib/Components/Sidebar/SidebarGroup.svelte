@@ -1,25 +1,40 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import SidebarList from './SidebarList.svelte';
 
 	let { children, label }: { children?: Snippet; label: string } = $props();
 
 	let isOpen = $state(true);
 </script>
 
-<span>
-	{label}
-</span>
+<div>
+	<span>
+		{label}
+	</span>
 
-<SidebarList>
-	{@render children?.()}
-</SidebarList>
+	<ul>
+		{@render children?.()}
+	</ul>
+</div>
 
 <style>
-	span {
-		padding: 16px 0px 6px 6px;
-		color: var(--secondary-text-color);
-		font-size: 0.75rem;
-		font-weight: 500;
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+
+		span {
+			color: var(--secondary-text-color);
+			font-size: 0.75rem;
+			font-weight: 500;
+			padding: 4px;
+		}
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		margin-bottom: 16px;
 	}
 </style>

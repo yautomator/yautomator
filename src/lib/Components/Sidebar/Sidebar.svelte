@@ -1,46 +1,24 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	type SidebarProps = { header?: Snippet; body?: Snippet; footer?: Snippet };
+	type SidebarProps = { children: Snippet };
 
-	let { header, body, footer }: SidebarProps = $props();
+	let { children }: SidebarProps = $props();
 </script>
 
 <nav>
-	<section>
-		{@render header?.()}
-	</section>
-
-	<section>
-		{@render body?.()}
-	</section>
-
-	<section>
-		{@render footer?.()}
-	</section>
+	{@render children()}
 </nav>
 
 <style>
 	nav {
 		grid-area: leftbar;
 		height: 100vh;
-		padding: 14px;
 		position: sticky;
 		top: 0;
 		overflow: auto;
 
 		display: flex;
 		flex-direction: column;
-		gap: 14px;
-
-		section {
-			display: flex;
-			flex-direction: column;
-			gap: 14px;
-		}
-
-		section:last-child {
-			margin-top: auto;
-		}
 	}
 </style>

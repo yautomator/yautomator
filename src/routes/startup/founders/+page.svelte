@@ -1,115 +1,154 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { TableAlignment } from '$lib/Common';
-	import IconButton from '$lib/Components/Buttons/IconButton.svelte';
-	import SecondaryButton from '$lib/Components/Buttons/SecondaryButton.svelte';
-	import LucideIcon from '$lib/Components/Icons/LucideIcon.svelte';
-	import AddFounder from '$lib/Components/Modals/AddFounder.svelte';
-	import EditFounder from '$lib/Components/Modals/EditFounder.svelte';
-	import Table from '$lib/Components/Table/Table.svelte';
-	import TableColumnLabel from '$lib/Components/Table/TableColumnLabel.svelte';
-	import TableRow from '$lib/Components/Table/TableRow.svelte';
-	import TableRowData from '$lib/Components/Table/TableRowData.svelte';
-	import { modals } from '$lib/States/modals.svelte';
-	import { CircleCheck, CircleDashed, FileCheck, FileQuestion, Plus, Trash } from 'lucide-svelte';
-	import NProgress from 'nprogress';
-	import { getContext, type Snippet } from 'svelte';
-	import type { PageProps, SubmitFunction } from './$types';
-
-	let { data }: PageProps = $props();
-	let { setHeader } = getContext<{ setHeader: (header: Snippet) => void }>('layout');
-
-	setHeader(header);
+	import Breadcrumb from '$lib/components/Breadcrumb.svelte';
+	import SecondaryButton from '$lib/components/buttons/SecondaryButton.svelte';
+	import SelectedStartupIcon from '$lib/components/icons/SelectedStartupIcon.svelte';
+	import AddFounder from '$lib/components/modals/AddFounder.svelte';
+	import EditFounder from '$lib/components/modals/EditFounder.svelte';
+	import Table from '$lib/components/table/Table.svelte';
+	import TableColumn from '$lib/components/table/TableColumn.svelte';
+	import TableRow from '$lib/components/table/TableRow.svelte';
+	import TableRowData from '$lib/components/table/TableRowData.svelte';
+	import { layout } from '$lib/states/layout.svelte';
+	import { modals } from '$lib/states/modals.svelte';
+	import { type Founder } from '$lib/utils/common';
+	import { CircleCheck, CircleDashed, Plus, UsersRound } from 'lucide-svelte';
 
 	const openAddFounderModal = () => {
 		modals.addFounderModal?.showModal();
 	};
 
-	let isLoadingDelete = $state(false);
-
-	const handleDeleteFounder: SubmitFunction = () => {
-		isLoadingDelete = true;
-		NProgress.start();
-
-		return async ({ result, update }) => {
-			if (result.type === 'success') {
-				await update();
-			} else {
-				alert('Failed to delete founder. Please try again.');
-			}
-
-			isLoadingDelete = false;
-			NProgress.done();
-		};
+	const openEditFounderModal = (founder: Founder) => {
+		layout.selectedFounder = founder;
+		modals.editFounderModal?.showModal();
 	};
+
+	let founders = $derived(layout.selectedStartup?.founders);
 </script>
 
 <AddFounder />
 <EditFounder />
 
-{#snippet header()}
-	<div class="header">
-		<SecondaryButton onclick={openAddFounderModal}>
-			<Plus size={14} strokeWidth={2.5} />
-			<span>Add founder</span>
-		</SecondaryButton>
-	</div>
-{/snippet}
-
-{#if data.founders}
-	<Table data={data.founders}>
-		{#snippet header()}
-			<TableColumnLabel>Name</TableColumnLabel>
-			<TableColumnLabel>CV</TableColumnLabel>
-			<TableColumnLabel>Linkedin URL</TableColumnLabel>
-			<TableColumnLabel>Role</TableColumnLabel>
-			<TableColumnLabel />
+<header>
+	<Breadcrumb>
+		{#snippet base()}
+			<SelectedStartupIcon />
 		{/snippet}
 
-		{#snippet body()}
-			{#each data.founders as founder (founder)}
-				<TableRow>
-					<TableRowData>{founder.firstName} {founder.lastName}</TableRowData>
-					<TableRowData>
-						<LucideIcon
-							icon={founder.cvUrl ? FileCheck : FileQuestion}
-							color={founder.cvUrl ? undefined : '#9f9837'}
-						/>
-					</TableRowData>
-					<TableRowData>
-						<LucideIcon
-							icon={founder.linkedinProfileUrl ? CircleCheck : CircleDashed}
-							color={founder.linkedinProfileUrl ? undefined : '#9f9837'}
-						/>
-					</TableRowData>
-					<TableRowData>{founder.role}</TableRowData>
-					<TableRowData align={TableAlignment.RIGHT}>
-						<form method="POST" action="?/delete" use:enhance={handleDeleteFounder}>
-							<input type="hidden" name="id" value={founder._id} />
-							<IconButton disabled={isLoadingDelete} type="submit">
-								<Trash size={15} />
-							</IconButton>
-						</form>
-					</TableRowData>
-				</TableRow>
-			{/each}
+		{#snippet current()}
+			<span>Founders</span>
 		{/snippet}
-	</Table>
-{:else}
-	<p class="no-founders">No founders found</p>
-{/if}
+	</Breadcrumb>
+
+	<SecondaryButton onclick={openAddFounderModal}>
+		<Plus size={14} strokeWidth={2.5} />
+		<span>Add founder</span>
+	</SecondaryButton>
+</header>
+
+<main>
+	{#if founders?.length}
+		<Table>
+			{#snippet columns()}
+				<TableColumn width="40%">Full name</TableColumn>
+				<TableColumn width="10%">Country</TableColumn>
+				<TableColumn width="10%">Linkedin</TableColumn>
+				<TableColumn width="10%">Role</TableColumn>
+				<TableColumn width="10%">Email</TableColumn>
+				<TableColumn width="10%">Summary</TableColumn>
+				<TableColumn width="10%">CV</TableColumn>
+			{/snippet}
+
+			{#snippet rows()}
+				{#each founders as founder (founder._id)}
+					<TableRow onclick={() => openEditFounderModal(founder)}>
+						<TableRowData>
+							{founder.firstName}
+							{founder.lastName}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.country}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.linkedin}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.role}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.email}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.summary}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+						<TableRowData>
+							{#if founder.cvUrl}
+								<CircleCheck size={14} />
+							{:else}
+								<CircleDashed size={14} color="#eed202" />
+							{/if}
+						</TableRowData>
+					</TableRow>
+				{/each}
+			{/snippet}
+		</Table>
+	{:else}
+		<div>
+			<UsersRound size={32} />
+			<span
+				>No founder found, start adding founders to your startup with the button in the header.</span
+			>
+		</div>
+	{/if}
+</main>
 
 <style>
-	.header {
+	header {
+		grid-area: header;
+		border-bottom: 0.5px solid var(--border-color);
+		height: 40px;
 		display: flex;
-		width: 100%;
-		justify-content: flex-end;
-		place-items: center;
-		padding: 7px 30px;
+		justify-content: space-between;
+		padding: 8px 12px;
+	}
+
+	main {
+		grid-area: main;
+		overflow: auto;
 
 		div {
+			width: 100%;
+			height: 100%;
+
 			display: flex;
+			justify-content: center;
 			place-items: center;
+			gap: 12px;
+
+			span {
+				width: 300px;
+				font-size: 0.8125rem;
+				color: var(--secondary-text-color);
+			}
 		}
 	}
 </style>

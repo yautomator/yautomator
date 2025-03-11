@@ -1,13 +1,20 @@
 <script lang="ts">
+	interface StartupProps {
+		name: string | undefined;
+		backgroundColor: string | undefined;
+	}
+
+	let { name, backgroundColor }: StartupProps = $props();
 </script>
 
-<div>YA</div>
+<div style:background-color={backgroundColor}>
+	<span>{name}</span>
+</div>
 
 <style>
 	div {
 		display: flex;
 		place-items: center;
-		background-color: #008cea;
 		justify-content: center;
 		width: 20px;
 		height: 20px;

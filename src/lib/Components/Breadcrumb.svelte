@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { ChevronRight } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
-	let { base, current } = $props();
+	type BreadcrumbProps = {
+		base: Snippet;
+		current: Snippet;
+	};
+
+	let { base, current }: BreadcrumbProps = $props();
 </script>
 
 <div>
@@ -13,9 +19,12 @@
 <style>
 	div {
 		display: flex;
+		gap: 4px;
 		place-items: center;
-		gap: 5px;
+
 		font-size: 0.8125rem;
+		color: var(--main-text-color);
+		font-weight: 500;
 
 		:global(svg) {
 			stroke: var(--secondary-text-color);

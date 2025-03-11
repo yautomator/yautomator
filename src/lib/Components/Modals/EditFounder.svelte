@@ -1,65 +1,84 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import type { Founder } from '$lib/Common';
-	import { founders } from '$lib/States/founders.svelte';
-	import { layout } from '$lib/States/layout.svelte';
-	import { modals } from '$lib/States/modals.svelte';
+	import { modals } from '$lib/states/modals.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
+	import { enhance } from '$app/forms';
+	import { page } from '$app/state';
+	import { layout } from '$lib/states/layout.svelte';
+	import { getCountryByIso } from '$lib/utils/geolocation';
+	import { UserPen } from 'lucide-svelte';
+	import nProgress from 'nprogress';
 	import { onMount } from 'svelte';
 	import Breadcrumb from '../Breadcrumb.svelte';
-	import PrimaryButton from '../Buttons/PrimaryButton.svelte';
+	import PrimaryButton from '../buttons/PrimaryButton.svelte';
+	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import FlexGroup from '../FlexGroup.svelte';
-	import Startup from '../Icons/Startup.svelte';
-	import FileDropInput from '../Inputs/FileDropInput.svelte';
-	import FloatingInput from '../Inputs/FloatingInput.svelte';
-	import FloatingTextarea from '../Inputs/FloatingTextarea.svelte';
+	import SelectedStartupIcon from '../icons/SelectedStartupIcon.svelte';
+	import FileUpload from '../inputs/FileUpload.svelte';
+	import Input from '../inputs/Input.svelte';
+	import Textarea from '../inputs/Textarea.svelte';
+	import Select from '../select/Select.svelte';
 	import Base from './Base.svelte';
 
-	let founder = $state<Founder>({
-		_id: '',
-		firstName: '',
-		lastName: '',
-		role: '',
-		countryOfLiving: '',
-		linkedinProfileUrl: '',
-		email: '',
-		summary: '',
-		cvUrl: null
-	});
+	let formId = 'edit-founder';
+	let isLoadingUpdate = $state(false);
+	let isLoadingDelete = $state(false);
+	let modalRef = $state<HTMLDialogElement>();
 
-	let isLoading = $state(false);
-	let ref = $state<HTMLDialogElement>();
+	const close = () => modals.editFounderModal?.close();
 
-	$effect(() => {
-		if (layout.selectedFounder) founder = { ...layout.selectedFounder };
-	});
+	const reassignSelectedStartup = () => {
+		// Iterate through the startups and find the one with the same _id
+		layout.selectedStartup = page.data.startups.find(
+			(startup: any) => startup._id === layout.selectedStartup?._id
+		);
+	};
 
-	onMount(() => {
-		modals.editFounderModal = ref;
-	});
+	const handleEditFounderResponse: SubmitFunction = () => {
+		isLoadingUpdate = true;
+		nProgress.start();
 
-	const handleEditFounderResponse: SubmitFunction = ({ formElement, formData, action, cancel }) => {
-		isLoading = true;
-
-		return async ({ result }) => {
-			if (result.type === 'success' && result.data?.newFounder) {
-				founders.push(result.data.newFounder);
-				founder = {} as Founder;
+		return async ({ result, update }) => {
+			if (result.type === 'success') {
+				await update({ reset: false });
+				reassignSelectedStartup();
 			} else {
 				alert('Failed to edit founder. Please try again.');
 			}
-			isLoading = false;
+
+			isLoadingUpdate = false;
+			nProgress.done();
 		};
 	};
+
+	const handleDeleteFounderResponse: SubmitFunction = () => {
+		isLoadingDelete = true;
+		nProgress.start();
+
+		return async ({ result, update }) => {
+			if (result.type === 'success') {
+				close();
+				await update({ reset: false });
+				reassignSelectedStartup();
+			} else {
+				alert('Failed to delete founder. Please try again.');
+			}
+
+			isLoadingDelete = false;
+			nProgress.done();
+		};
+	};
+
+	onMount(() => (modals.editFounderModal = modalRef));
 </script>
 
-<Base bind:ref>
+<Base bind:modalRef>
 	{#snippet header()}
 		<Breadcrumb>
 			{#snippet base()}
-				<Startup />
+				<SelectedStartupIcon />
 			{/snippet}
+
 			{#snippet current()}
 				<span>Edit founder</span>
 			{/snippet}
@@ -67,59 +86,132 @@
 	{/snippet}
 
 	<form
-		id="founder"
+		id={formId}
 		method="POST"
-		use:enhance={handleEditFounderResponse}
 		enctype="multipart/form-data"
+		action="?/update"
+		use:enhance={handleEditFounderResponse}
 	>
+		<input type="hidden" name="id" value={layout.selectedFounder?._id} />
+		<input type="hidden" name="startupId" value={layout.selectedStartup?._id} />
+
 		<FlexGroup>
-			<FloatingInput
-				type="text"
-				placeholder="First name"
-				name="firstName"
-				bind:value={founder.firstName}
-			/>
-			<FloatingInput
-				type="text"
-				placeholder="Last name"
-				name="lastName"
-				bind:value={founder.lastName}
-			/>
+			<label>
+				First name
+				<Input
+					type="text"
+					placeholder="John"
+					name="firstName"
+					value={layout.selectedFounder?.firstName}
+					required
+				/>
+			</label>
+
+			<label>
+				Last name
+				<Input
+					type="text"
+					placeholder="Doe"
+					name="lastName"
+					value={layout.selectedFounder?.lastName}
+				/>
+			</label>
 		</FlexGroup>
 
 		<FlexGroup>
-			<FloatingInput
-				type="text"
-				placeholder="Country"
-				name="country"
-				bind:value={founder.countryOfLiving}
-			/>
-			<FloatingInput
-				placeholder="LinkedIn URL"
-				name="linkedinUrl"
-				bind:value={founder.linkedinProfileUrl}
-				type="url"
-			/>
+			<label>
+				Country
+				<Select
+					placeholder="Select country"
+					name="country"
+					value={getCountryByIso(layout.selectedFounder?.country)}
+				/>
+			</label>
+
+			<label>
+				LinkedIn
+				<Input
+					placeholder="https://www.linkedin.com/in/john-doe"
+					name="linkedin"
+					type="url"
+					value={layout.selectedFounder?.linkedin}
+				/>
+			</label>
 		</FlexGroup>
 
 		<FlexGroup>
-			<FloatingInput type="text" placeholder="Role" name="role" bind:value={founder.role} />
-			<FloatingInput type="email" placeholder="Email" name="email" bind:value={founder.email} />
+			<label>
+				Role
+				<Input
+					type="text"
+					placeholder="Engineer"
+					name="role"
+					value={layout.selectedFounder?.role}
+				/>
+			</label>
+
+			<label>
+				Email
+				<Input
+					type="email"
+					placeholder="john.doe@example.com"
+					name="email"
+					value={layout.selectedFounder?.email}
+					required
+				/>
+			</label>
 		</FlexGroup>
 
-		<FloatingTextarea placeholder="Summary" name="summary" bind:value={founder.summary} />
-		<FileDropInput name="cv" />
+		<label>
+			Summary
+			<Textarea
+				placeholder="John Doe is a versatile figure commonly used in documentation and instructional materials."
+				name="summary"
+				value={layout.selectedFounder?.summary}
+			/>
+		</label>
+
+		<label>
+			Upload resume
+			<FileUpload
+				placeholder="Click to browse"
+				name="cv"
+				accept=".pdf, .doc, .docx"
+				selectedFileName={layout.selectedFounder?.cvName}
+			/>
+		</label>
 	</form>
 
 	{#snippet footer()}
-		<PrimaryButton type="submit" form="founder" disabled={isLoading}>Save changes</PrimaryButton>
+		<form method="POST" action="?/delete" use:enhance={handleDeleteFounderResponse}>
+			<input type="hidden" name="id" value={layout.selectedFounder?._id} />
+			<SecondaryButton type="submit" disabled={isLoadingDelete}>
+				<span>Delete founder</span>
+			</SecondaryButton>
+		</form>
+
+		<PrimaryButton type="submit" form={formId} disabled={isLoadingUpdate}>
+			<UserPen size={14} strokeWidth={2.5} />
+			<span>Update founder</span>
+		</PrimaryButton>
 	{/snippet}
 </Base>
 
 <style>
+	label {
+		width: 100%;
+
+		font-size: 0.8125rem;
+		font-weight: 500;
+
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: 18px;
 	}
 </style>

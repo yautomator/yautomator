@@ -1,15 +1,23 @@
 <script lang="ts">
-	let { children }: { children?: any } = $props();
+	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+
+	interface TableRowProps extends HTMLButtonAttributes {
+		children: Snippet;
+		onclick?: () => void;
+	}
+
+	let { children, onclick }: TableRowProps = $props();
 </script>
 
-<tr>
+<tr {onclick}>
 	{@render children?.()}
 </tr>
 
 <style>
 	tr {
+		height: 48px;
 		cursor: pointer;
-		width: 100%;
 
 		&:hover {
 			background-color: #151618;

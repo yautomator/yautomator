@@ -1,18 +1,15 @@
 <script lang="ts">
-	type ButtonProps = {
-		children?: any;
-		type?: 'button' | 'submit';
-		form?: string;
-		onclick?: () => void;
-		disabled?: boolean;
-	};
+	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 
-	let { children, type, form, onclick, disabled }: ButtonProps = $props();
+	interface IconButtonProps extends HTMLButtonAttributes {
+		children: Snippet;
+	}
+
+	let { children, ...nativeProps }: IconButtonProps = $props();
 </script>
 
-<button {onclick} {type} {form} {disabled}>
-	{@render children?.()}
-</button>
+<button {...nativeProps}>{@render children?.()}</button>
 
 <style>
 	button {
@@ -26,11 +23,7 @@
 		background: none;
 		transition: background 0.2s;
 		height: 100%;
-		padding: 8px;
-
-		box-shadow:
-			lch(0 0 0 / 0.06) 0px 4px 4px -1px,
-			lch(0 0 0 / 0.12) 0px 1px 1px;
+		padding: 6px;
 
 		&:hover {
 			background-color: var(--secondary-button-background-color);

@@ -1,23 +1,36 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { modals } from '$lib/States/modals.svelte';
+	import { page } from '$app/state';
+
+	import { layout } from '$lib/states/layout.svelte';
+	import { modals } from '$lib/states/modals.svelte';
+	import { getCurrentCountry } from '$lib/utils/geolocation';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { Plus, X } from 'lucide-svelte';
+	import { Plus } from 'lucide-svelte';
 	import NProgress from 'nprogress';
 	import { onMount } from 'svelte';
 	import Breadcrumb from '../Breadcrumb.svelte';
-	import IconButton from '../Buttons/IconButton.svelte';
-	import PrimaryButton from '../Buttons/PrimaryButton.svelte';
+	import PrimaryButton from '../buttons/PrimaryButton.svelte';
+	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import FlexGroup from '../FlexGroup.svelte';
-	import StartupIcon from '../Icons/Startup.svelte';
-	import Select from '../Inputs/Country.svelte';
-	import FileDropInput from '../Inputs/FileDropInput.svelte';
-	import FloatingInput from '../Inputs/FloatingInput.svelte';
-	import FloatingTextarea from '../Inputs/FloatingTextarea.svelte';
+	import SelectedStartupIcon from '../icons/SelectedStartupIcon.svelte';
+	import FileUpload from '../inputs/FileUpload.svelte';
+	import Input from '../inputs/Input.svelte';
+	import Textarea from '../inputs/Textarea.svelte';
+	import Select from '../select/Select.svelte';
 	import Base from './Base.svelte';
 
 	let isLoading = $state(false);
-	let ref = $state<HTMLDialogElement>();
+	let modalRef = $state<HTMLDialogElement>();
+	let formId = 'add-founder';
+	let country = getCurrentCountry();
+
+	const reassignSelectedStartup = () => {
+		// Iterate through the startups and find the one with the same _id
+		layout.selectedStartup = page.data.startups.find(
+			(startup: any) => startup._id === layout.selectedStartup?._id
+		);
+	};
 
 	const handleNewFounderResponse: SubmitFunction = () => {
 		isLoading = true;
@@ -25,8 +38,9 @@
 
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
-				modals.addFounderModal?.close();
-				await update();
+				close();
+				await update({ reset: false });
+				reassignSelectedStartup();
 			} else {
 				alert('Failed to add founder. Please try again.');
 			}
@@ -36,61 +50,93 @@
 		};
 	};
 
-	onMount(() => {
-		modals.addFounderModal = ref;
-	});
-
 	const close = () => {
 		modals.addFounderModal?.close();
 	};
 
-	let selectedCountry = $state('');
+	onMount(() => {
+		modals.addFounderModal = modalRef;
+	});
 </script>
 
-<Base bind:ref>
+<Base bind:modalRef>
 	{#snippet header()}
 		<Breadcrumb>
 			{#snippet base()}
-				<StartupIcon />
+				<SelectedStartupIcon />
 			{/snippet}
+
 			{#snippet current()}
 				<span>New founder</span>
 			{/snippet}
 		</Breadcrumb>
-
-		<IconButton onclick={close}>
-			<X size={15} />
-		</IconButton>
 	{/snippet}
 
 	<form
-		id="founder"
+		id={formId}
 		method="POST"
 		enctype="multipart/form-data"
-		use:enhance={handleNewFounderResponse}
 		action="?/create"
+		use:enhance={handleNewFounderResponse}
 	>
+		<input type="hidden" name="startupId" value={layout.selectedStartup?._id} />
+
 		<FlexGroup>
-			<FloatingInput type="text" placeholder="First name" name="firstName" />
-			<FloatingInput type="text" placeholder="Last name" name="lastName" />
+			<label>
+				First name
+				<Input type="text" placeholder="John" name="firstName" required />
+			</label>
+
+			<label>
+				Last name
+				<Input type="text" placeholder="Doe" name="lastName" />
+			</label>
 		</FlexGroup>
 
 		<FlexGroup>
-			<Select placeholder="Country of living" />
-			<FloatingInput placeholder="LinkedIn URL" name="linkedinProfileUrl" type="url" />
+			<label>
+				Country
+				<Select placeholder="Select country" name="country" value={country} />
+			</label>
+
+			<label>
+				LinkedIn
+				<Input placeholder="https://www.linkedin.com/in/john-doe" name="linkedin" type="url" />
+			</label>
 		</FlexGroup>
 
 		<FlexGroup>
-			<FloatingInput type="text" placeholder="Role" name="role" />
-			<FloatingInput type="email" placeholder="Email" name="email" />
+			<label>
+				Role
+				<Input type="text" placeholder="Engineer" name="role" />
+			</label>
+
+			<label>
+				Email
+				<Input type="email" placeholder="john.doe@example.com" name="email" required />
+			</label>
 		</FlexGroup>
 
-		<FloatingTextarea placeholder="Summary" name="summary" />
-		<FileDropInput name="cv" />
+		<label>
+			Summary
+			<Textarea
+				placeholder="John Doe is a versatile figure commonly used in documentation and instructional materials."
+				name="summary"
+			/>
+		</label>
+
+		<label>
+			Upload resume
+			<FileUpload name="cv" accept=".pdf, .doc, .docx" />
+		</label>
 	</form>
 
 	{#snippet footer()}
-		<PrimaryButton type="submit" form="founder" disabled={isLoading}>
+		<SecondaryButton onclick={close}>
+			<span>Cancel</span>
+		</SecondaryButton>
+
+		<PrimaryButton type="submit" form={formId} disabled={isLoading}>
 			<Plus size={14} strokeWidth={2.5} />
 			<span>Add founder</span>
 		</PrimaryButton>
@@ -98,9 +144,19 @@
 </Base>
 
 <style>
+	label {
+		font-weight: 450;
+		width: 100%;
+		font-size: 0.8125rem;
+
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: 18px;
 	}
 </style>

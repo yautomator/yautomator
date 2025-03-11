@@ -1,0 +1,42 @@
+export type Founder = {
+	_id: string;
+	firstName: string;
+	lastName: string;
+	role: string;
+	country: string;
+	linkedin: string;
+	email: string;
+	summary: string;
+	cvUrl: string | null;
+	cvName: string | null;
+};
+
+export type Startup = {
+	_id: string;
+	name: string;
+	description: string;
+	websiteUrl: string;
+	foundedDate: string;
+	industry: string;
+	teamSize: number;
+	location: string;
+	fundingStage: string;
+	url: string;
+	tagline: string;
+	revenue: number;
+	number_of_users: number;
+	logo: string;
+	demoVideoUrl: string;
+	teamIntroductionVideoUrl: string;
+	pitchDeckUrl: string;
+	pitchDeckName: string;
+	incorporation: boolean;
+	founders: Founder[];
+	user: string;
+	applications: any[];
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+	abbreviation: string;
+	color: string;
+};

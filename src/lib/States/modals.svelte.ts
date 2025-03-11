@@ -1,4 +1,3 @@
-
 export type ModalsType = {
 	addFounderModal: HTMLDialogElement | undefined;
 	editFounderModal: HTMLDialogElement | undefined;
@@ -6,5 +5,5 @@ export type ModalsType = {
 
 export const modals = $state<ModalsType>({
 	addFounderModal: undefined,
-	editFounderModal: undefined,
+	editFounderModal: undefined
 });

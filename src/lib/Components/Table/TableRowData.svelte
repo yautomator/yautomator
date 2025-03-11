@@ -1,24 +1,35 @@
 <script lang="ts">
-	import { TableAlignment } from '$lib/Common';
+	import type { Snippet } from 'svelte';
+	import type { HTMLTdAttributes } from 'svelte/elements';
 
-	let { children, align = TableAlignment.LEFT }: { children?: any; align?: TableAlignment } =
-		$props();
+	interface TableRowDataProps extends HTMLTdAttributes {
+		children?: Snippet;
+	}
+
+	let { children, ...nativeProps }: TableRowDataProps = $props();
 </script>
 
-<td {align}>
-	{@render children?.()}
+<td {...nativeProps}>
+	<span>{@render children?.()}</span>
 </td>
 
 <style>
 	td {
-		height: 48px;
-		white-space: nowrap;
-
-		padding-left: 30px;
+		position: relative;
+		padding: 12px;
 		font-size: 0.8125rem;
 
-		&:last-child {
-			padding-right: 30px;
+		&::before {
+			content: '&nbsp;';
+			visibility: hidden;
+		}
+
+		span {
+			position: absolute;
+			left: 12px;
+			right: 0;
+			white-space: nowrap;
+			overflow: hidden;
 		}
 	}
 </style>
