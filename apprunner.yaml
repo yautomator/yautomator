@@ -5,7 +5,6 @@ build:
     pre-build:
       - npm ci
     build:
-      - npx svelte-kit sync
       - npm run build
 run:
   command: node build/index.js
