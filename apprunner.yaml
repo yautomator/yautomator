@@ -3,10 +3,17 @@ runtime: nodejs18
 build:
   commands:
     pre-build:
-      - echo "Pre-build step successful"
+      - npm ci
     build:
-      - echo "Build step successful"
+      - echo "Building app..."
+      - npm run build
+      - echo "Build complete"
 run:
-  command: node -e "const http = require('http'); const server = http.createServer((req, res) => { res.writeHead(200); res.end('Hello from AWS App Runner'); }); server.listen(3000, () => console.log('Server running on port 3000'));"
+  command: node build/index.js || node build/server/index.js || ls -la build
   network:
     port: 3000
+  env:
+    - name: NODE_ENV
+      value: "production"
+    - name: PORT
+      value: "3000"
