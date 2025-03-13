@@ -3,17 +3,10 @@ runtime: nodejs18
 build:
   commands:
     pre-build:
-      - npm ci
+      - echo "Starting debug build"
     build:
-      - echo "Building app..."
-      - npm run build
-      - echo "Build complete"
+      - node apprunner-debug.js
 run:
-  command: node build/index.js || node build/server/index.js || ls -la build
+  command: node apprunner-debug.js
   network:
     port: 3000
-  env:
-    - name: NODE_ENV
-      value: "production"
-    - name: PORT
-      value: "3000"
