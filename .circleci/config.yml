@@ -44,10 +44,13 @@ jobs:
             mkdir -p .temp_backup
             echo "Moving problematic route files..."
             mv src/routes/startup .temp_backup/ || echo "startup directory not found"
+            mv src/routes/organizations .temp_backup/ || echo "organizations directory not found"
             
-            # Create empty directory to prevent errors
+            # Create empty directories to prevent errors
             mkdir -p src/routes/startup
+            mkdir -p src/routes/organizations
             touch src/routes/startup/.gitkeep
+            touch src/routes/organizations/.gitkeep
             
             # Prepare svelte.config.js for static build
             cp svelte.config.js svelte.config.js.bak
