@@ -29,6 +29,13 @@ jobs:
           command: |
             npm install -D @sveltejs/adapter-static
       - run:
+          name: Check file structure
+          command: |
+            echo "Checking if Sidebar.svelte exists..."
+            find src -name "Sidebar.svelte" -type f
+            echo "Checking the content of [id]/+page.svelte..."
+            cat src/routes/startup/[id]/+page.svelte
+      - run:
           name: Build the SvelteKit project
           command: |
             npm run build
