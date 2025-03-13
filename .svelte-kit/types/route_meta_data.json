@@ -1,0 +1,39 @@
+{
+	"/": [
+		"src/routes/+layout.server.ts"
+	],
+	"/organizations/accelerators": [
+		"src/routes/+layout.server.ts"
+	],
+	"/organizations/incubators": [
+		"src/routes/+layout.server.ts"
+	],
+	"/organizations/launch": [
+		"src/routes/+layout.server.ts"
+	],
+	"/organizations/venture-capital": [
+		"src/routes/+layout.server.ts"
+	],
+	"/startup/basic-information": [
+		"src/routes/startup/basic-information/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/startup/business-information": [
+		"src/routes/startup/business-information/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/startup/founders": [
+		"src/routes/startup/founders/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/startup/media-and-links": [
+		"src/routes/startup/media-and-links/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/startup/[id]": [
+		"src/routes/startup/[id]/+layout.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/startup/[id]/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	]
+}

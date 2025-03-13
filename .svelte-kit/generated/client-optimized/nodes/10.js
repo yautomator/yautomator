@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/startup/media-and-links/+page.svelte";
