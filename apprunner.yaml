@@ -1,5 +1,5 @@
 version: 1.0
-runtime: nodejs16
+runtime: nodejs14
 build:
   commands:
     pre-build:
@@ -7,11 +7,10 @@ build:
     build:
       - npm run build
 run:
-  runtime-version: 16.x
+  runtime-version: 14.x
   command: node build
   network:
     port: 3000
-    env: PORT
   env:
     - name: NODE_ENV
       value: "production"
