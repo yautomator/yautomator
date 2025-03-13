@@ -1344,8 +1344,7 @@ function Root($$payload, $$props) {
     components = [],
     form,
     data_0 = null,
-    data_1 = null,
-    data_2 = null
+    data_1 = null
   } = $$props;
   {
     setContext("__svelte__", stores);
@@ -1353,7 +1352,7 @@ function Root($$payload, $$props) {
   {
     stores.page.set(page);
   }
-  const Pyramid_2 = constructors[2];
+  const Pyramid_1 = constructors[1];
   if (constructors[1]) {
     $$payload.out += "<!--[-->";
     const Pyramid_0 = constructors[0];
@@ -1362,29 +1361,9 @@ function Root($$payload, $$props) {
       data: data_0,
       form,
       children: ($$payload2) => {
-        if (constructors[2]) {
-          $$payload2.out += "<!--[-->";
-          const Pyramid_1 = constructors[1];
-          $$payload2.out += `<!---->`;
-          Pyramid_1($$payload2, {
-            data: data_1,
-            form,
-            children: ($$payload3) => {
-              $$payload3.out += `<!---->`;
-              Pyramid_2($$payload3, { data: data_2, form });
-              $$payload3.out += `<!---->`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload2.out += `<!---->`;
-        } else {
-          $$payload2.out += "<!--[!-->";
-          const Pyramid_1 = constructors[1];
-          $$payload2.out += `<!---->`;
-          Pyramid_1($$payload2, { data: data_1, form });
-          $$payload2.out += `<!---->`;
-        }
-        $$payload2.out += `<!--]-->`;
+        $$payload2.out += `<!---->`;
+        Pyramid_1($$payload2, { data: data_1, form });
+        $$payload2.out += `<!---->`;
       },
       $$slots: { default: true }
     });
@@ -1490,7 +1469,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "l9hd69"
+  version_hash: "2ab049"
 };
 async function get_hooks() {
   let handle;

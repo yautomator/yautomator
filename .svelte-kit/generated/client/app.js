@@ -10,23 +10,20 @@ export const nodes = [
 	() => import('./nodes/6'),
 	() => import('./nodes/7'),
 	() => import('./nodes/8'),
-	() => import('./nodes/9'),
-	() => import('./nodes/10'),
-	() => import('./nodes/11')
+	() => import('./nodes/9')
 ];
 
-export const server_loads = [0,2];
+export const server_loads = [0];
 
 export const dictionary = {
-		"/organizations/accelerators": [3],
-		"/organizations/incubators": [4],
-		"/organizations/launch": [5],
-		"/organizations/venture-capital": [6],
-		"/startup/basic-information": [~7],
-		"/startup/business-information": [~8],
-		"/startup/founders": [~9],
-		"/startup/media-and-links": [~10],
-		"/startup/[id]": [11,[2]]
+		"/organizations/accelerators": [2],
+		"/organizations/incubators": [3],
+		"/organizations/launch": [4],
+		"/organizations/venture-capital": [5],
+		"/startup/basic-information": [~6],
+		"/startup/business-information": [~7],
+		"/startup/founders": [~8],
+		"/startup/media-and-links": [~9]
 	};
 
 export const hooks = {

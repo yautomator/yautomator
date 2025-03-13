@@ -102,22 +102,6 @@
     "file": "_app/immutable/assets/StartupIcon.BXeebIZl.css",
     "src": "_StartupIcon.BXeebIZl.css"
   },
-  "_app.Cdrb4Uz4.css": {
-    "file": "_app/immutable/assets/app.Cdrb4Uz4.css",
-    "src": "_app.Cdrb4Uz4.css"
-  },
-  "_app.js": {
-    "file": "chunks/app.js",
-    "name": "app",
-    "imports": [
-      "_index.js",
-      "_Icon.js"
-    ],
-    "css": [
-      "_app/immutable/assets/app.Cdrb4Uz4.css",
-      "_app/immutable/assets/StartupIcon.BXeebIZl.css"
-    ]
-  },
   "_client.js": {
     "file": "chunks/client.js",
     "name": "client",
@@ -181,12 +165,6 @@
       "_index2.js"
     ]
   },
-  "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/layout.svelte": {
-    "file": "entries/fallbacks/layout.svelte.js",
-    "name": "entries/fallbacks/layout.svelte",
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/layout.svelte",
-    "isEntry": true
-  },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
     "file": "index.js",
     "name": "index",
@@ -215,11 +193,12 @@
     "imports": [
       "_index.js",
       "_client.js",
-      "_app.js",
-      "_index2.js"
+      "_index2.js",
+      "_Icon.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.B2686JZ9.css"
+      "_app/immutable/assets/_layout.BxnoRSfg.css",
+      "_app/immutable/assets/StartupIcon.BXeebIZl.css"
     ]
   },
   "src/routes/organizations/accelerators/+page.svelte": {
@@ -280,29 +259,6 @@
     ],
     "css": [
       "_app/immutable/assets/_page.DUGOLH4k.css"
-    ]
-  },
-  "src/routes/startup/[id]/+layout.server.ts": {
-    "file": "entries/pages/startup/_id_/_layout.server.ts.js",
-    "name": "entries/pages/startup/_id_/_layout.server.ts",
-    "src": "src/routes/startup/[id]/+layout.server.ts",
-    "isEntry": true,
-    "imports": [
-      "_shared-server.js"
-    ]
-  },
-  "src/routes/startup/[id]/+page.svelte": {
-    "file": "entries/pages/startup/_id_/_page.svelte.js",
-    "name": "entries/pages/startup/_id_/_page.svelte",
-    "src": "src/routes/startup/[id]/+page.svelte",
-    "isEntry": true,
-    "imports": [
-      "_index.js",
-      "_app.js",
-      "_index2.js"
-    ],
-    "css": [
-      "_app/immutable/assets/_page.Cf6nnlmV.css"
     ]
   },
   "src/routes/startup/basic-information/+page.server.ts": {

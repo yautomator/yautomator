@@ -357,7 +357,7 @@ function ensure_array_like(array_like_or_iterator) {
   return [];
 }
 export {
-  add_styles as A,
+  assign_payload as A,
   rest_props as B,
   fallback as C,
   clsx as D,
@@ -376,19 +376,19 @@ export {
   index_of as i,
   setContext as j,
   pop as k,
-  ensure_array_like as l,
+  escape_html as l,
   attr as m,
-  escape_html as n,
-  stringify as o,
+  add_styles as n,
+  sanitize_props as o,
   push as p,
-  spread_attributes as q,
+  spread_props as q,
   render as r,
   safe_equals as s,
-  sanitize_props as t,
-  spread_props as u,
-  slot as v,
-  bind_props as w,
-  copy_payload as x,
-  assign_payload as y,
-  getContext as z
+  slot as t,
+  ensure_array_like as u,
+  stringify as v,
+  getContext as w,
+  spread_attributes as x,
+  bind_props as y,
+  copy_payload as z
 };

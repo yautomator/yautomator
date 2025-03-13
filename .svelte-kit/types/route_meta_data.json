@@ -29,11 +29,5 @@
 	"/startup/media-and-links": [
 		"src/routes/startup/media-and-links/+page.server.ts",
 		"src/routes/+layout.server.ts"
-	],
-	"/startup/[id]": [
-		"src/routes/startup/[id]/+layout.server.ts",
-		"src/routes/+layout.server.ts",
-		"src/routes/startup/[id]/+layout.server.ts",
-		"src/routes/+layout.server.ts"
 	]
 }

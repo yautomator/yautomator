@@ -1,5 +1,5 @@
 import "clsx";
-import { p as push, k as pop, q as spread_attributes } from "./index.js";
+import { p as push, k as pop, x as spread_attributes } from "./index.js";
 /* empty css                                          */
 const layout = { selectedFounder: null, selectedStartup: null };
 function SelectedStartupIcon($$payload, $$props) {

@@ -1,4 +1,4 @@
-import { q as spread_attributes, m as attr, k as pop, p as push } from "../../../../chunks/index.js";
+import { x as spread_attributes, m as attr, k as pop, p as push } from "../../../../chunks/index.js";
 import "../../../../chunks/client.js";
 import { B as Breadcrumb } from "../../../../chunks/Breadcrumb.js";
 import { I as Input, l as layout, P as PrimaryButton, S as SelectedStartupIcon } from "../../../../chunks/Input.js";

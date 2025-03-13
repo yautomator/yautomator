@@ -1,5 +1,5 @@
 import "clsx";
-import { t as sanitize_props, u as spread_props, v as slot } from "./index.js";
+import { o as sanitize_props, q as spread_props, t as slot } from "./index.js";
 import { I as Icon } from "./Icon.js";
 function Chevron_right($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);

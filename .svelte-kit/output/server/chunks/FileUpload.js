@@ -1,4 +1,4 @@
-import { t as sanitize_props, u as spread_props, v as slot, q as spread_attributes, m as attr, n as escape_html, o as stringify } from "./index.js";
+import { o as sanitize_props, q as spread_props, t as slot, x as spread_attributes, m as attr, l as escape_html, v as stringify } from "./index.js";
 import { I as Icon } from "./Icon.js";
 function File_up($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);

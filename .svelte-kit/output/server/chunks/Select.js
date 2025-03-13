@@ -1,4 +1,4 @@
-import { t as sanitize_props, u as spread_props, v as slot, q as spread_attributes, p as push, z as getContext, m as attr, n as escape_html, k as pop, l as ensure_array_like, o as stringify } from "./index.js";
+import { o as sanitize_props, q as spread_props, t as slot, x as spread_attributes, p as push, w as getContext, m as attr, l as escape_html, k as pop, u as ensure_array_like, v as stringify } from "./index.js";
 import "clsx";
 import { I as Icon } from "./Icon.js";
 function Chevron_down($$payload, $$props) {
