@@ -16,70 +16,34 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y awscli
       - run:
-          name: Clean install
+          name: Install dependencies
           command: |
-            rm -rf node_modules package-lock.json
             npm install
       - run:
           name: Install Rollup dependencies
           command: |
-            npm install -D @rollup/rollup-linux-x64-gnu
+            npm install -D @rollup/rollup-linux-x64-gnu @sveltejs/adapter-static
       - run:
-          name: Install static adapter
+          name: Create minimal SPA config
           command: |
-            npm install -D @sveltejs/adapter-static
-      - run:
-          name: Update svelte.config.js
-          command: |
-            # Backup original config
-            cp svelte.config.js svelte.config.js.bak
-            
-            # Replace adapter-auto with adapter-static
-            sed -i 's/@sveltejs\/adapter-auto/@sveltejs\/adapter-static/g' svelte.config.js
-            
-            # Update adapter configuration
-            sed -i "s/adapter())/adapter({\n\t\tpages: 'build',\n\t\tassets: 'build',\n\t\tfallback: 'index.html',\n\t\tprecompress: true\n\t}))/g" svelte.config.js
-            
-            # Show the updated file
-            cat svelte.config.js
-      - run:
-          name: SvelteKit sync step
-          command: |
-            npx svelte-kit sync
-      - run:
-          name: Find all sidebar-related imports
-          command: |
-            echo "Searching for all sidebar imports in the codebase..."
-            grep -r "from .*sidebar" --include="*.svelte" src/
-            echo "Identifying potentially missing components..."
-      - run:
-          name: Create missing components
-          command: |
-            # Create directories if they don't exist
-            mkdir -p src/lib/components/sidebar
-            
-            # Create a placeholder sidebar component
-            echo '<script>
-            // Placeholder sidebar component for build
-            </script>
+            # Create a minimal SPA configuration that doesn't try to prerender routes
+            echo 'import adapter from "@sveltejs/adapter-static";
+            import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
-            <div class="sidebar-placeholder">
-              <!-- This is a placeholder sidebar component created during CI build -->
-            </div>' > src/lib/components/sidebar/Sidebar.svelte
+            /** @type {import("@sveltejs/kit").Config} */
+            const config = {
+              preprocess: vitePreprocess(),
+              kit: {
+                adapter: adapter({
+                  fallback: "index.html",
+                  prerender: false
+                })
+              }
+            };
 
-            # Create a placeholder SidebarBody component as well
-            echo '<script>
-            // Placeholder SidebarBody component for build
-            </script>
-
-            <div class="sidebar-body-placeholder">
-              <!-- This is a placeholder SidebarBody component created during CI build -->
-            </div>' > src/lib/components/sidebar/SidebarBody.svelte
-
-            # List all created files for verification
-            ls -la src/lib/components/sidebar/
+            export default config;' > svelte.config.js
       - run:
-          name: Build the SvelteKit project
+          name: Build client-only app
           command: |
             npm run build
       - run:
