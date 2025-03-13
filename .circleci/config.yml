@@ -16,9 +16,14 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y awscli
       - run:
-          name: Install dependencies
+          name: Clean install
           command: |
+            rm -rf node_modules package-lock.json
             npm install
+      - run:
+          name: Install Rollup dependencies
+          command: |
+            npm install -D @rollup/rollup-linux-x64-gnu
       - run:
           name: Install static adapter
           command: |
