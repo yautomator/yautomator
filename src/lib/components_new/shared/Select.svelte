@@ -1,74 +1,49 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { setContext } from 'svelte';
+	import { Select, type WithoutChildren } from 'bits-ui';
+	import CaretUpDown from 'phosphor-svelte/lib/CaretUpDown';
 
-	interface DropdownProps {
-		placeholder: Snippet;
-		children: Snippet;
-	}
+	type Item = { value: string; label: string; icon: any };
 
-	const { placeholder, children, ...nativeProps }: DropdownProps = $props();
+	type Props = WithoutChildren<Select.RootProps> & {
+		items: Item[];
+		placeholder?: string;
+		PlaceholderIcon?: any;
+		contentProps?: WithoutChildren<Select.ContentProps>;
+	};
 
-	let show = $state(false);
-	const toggleShow = () => (show = !show);
+	let { value, items, contentProps, placeholder, PlaceholderIcon, ...restProps }: Props = $props();
 
-	// Can this select state leak when SSR rendering?
-	// Or is it impossible as i started it as null and it can only change
-	// Under user interactions?
-	let selected = $state({ truth: null });
-
-	// How can i use symbol here and manage to use the exact same symbol in the
-	// SelectItem component, considering i dont want to write this symbol externally
-	// As this Select should be a component library plug-n-play
-	setContext('selected', selected);
+	const selectedItem = $derived(items.find((item: Item) => item.value === value));
 </script>
 
-<div>
-	<button onclick={toggleShow} {...nativeProps}>
-		{@render placeholder?.()}
-	</button>
-	<ul class:show>
-		{@render children?.()}
-	</ul>
-</div>
+<Select.Root bind:value={value as never} {...restProps}>
+	<Select.Trigger>
+		{#if selectedItem}
+			<selectedItem.icon size={20} />
+			{selectedItem.label}
+		{:else}
+			{#if PlaceholderIcon}
+				<PlaceholderIcon size={20} />
+			{/if}
 
-<style>
-	div {
-		display: flex;
-		flex-direction: column;
+			{#if placeholder}
+				{placeholder}
+			{/if}
+		{/if}
 
-		> button {
-			height: 40px;
-			border-radius: 4px;
-			padding: 12px;
-			transition: all 0.2s;
-
-			background: var(--select-background-color);
-			border: 0.5px solid var(--select-border-color);
-
-			display: flex;
-			gap: 8px;
-			place-items: center;
-			cursor: pointer;
-
-			font-size: 0.875rem;
-			letter-spacing: -0.00625rem;
-			font-variation-settings: 'opsz' 32;
-		}
-
-		ul {
-			display: none;
-			flex-direction: column;
-			padding: 4px;
-			background: var(--select-background-color);
-			border: 0.5px solid var(--select-border-color);
-			margin-top: 8px;
-			border-radius: 4px;
-			gap: 4px;
-
-			&.show {
-				display: flex;
-			}
-		}
-	}
-</style>
+		<CaretUpDown size={15} />
+	</Select.Trigger>
+	<Select.Portal>
+		<Select.Content {...contentProps}>
+			<Select.Viewport>
+				{#each items as { value, label, icon } (value)}
+					<Select.Item {value} {label}>
+						{#snippet children({ selected })}
+							{label}
+						{/snippet}
+					</Select.Item>
+				{/each}
+			</Select.Viewport>
+		</Select.Content>
+	</Select.Portal>
+</Select.Root>

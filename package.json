@@ -38,12 +38,14 @@
 		"@aws-sdk/client-s3": "^3.744.0",
 		"@aws-sdk/credential-providers": "^3.744.0",
 		"@lordicon/element": "^1.10.1",
+		"@tailwindcss/vite": "^4.0.16",
 		"chroma-js": "^3.1.2",
 		"lottie-web": "^5.12.2",
 		"lucide-svelte": "^0.468.0",
 		"nprogress": "^0.2.0",
 		"svelte-flag-icons": "^2.0.1",
 		"svelte-tippy": "^1.3.2",
+		"tailwindcss": "^4.0.16",
 		"tippy.js": "^6.3.7"
 	}
 }

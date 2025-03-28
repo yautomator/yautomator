@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Breadcrumb from '$lib/components/Breadcrumb.svelte';
-	import Container from '$lib/components_new/shared/Container.svelte';
 
 	const { data } = page;
 </script>
@@ -19,11 +18,7 @@
 </header>
 
 <main>
-	{#each data.organizations.filter((organization: any) => organization.organizationType === 'ACCELERATOR') as organization}
-		<Container>
-			<h1>{organization.name}</h1>
-		</Container>
-	{/each}
+	{#each data.organizations.filter((organization: any) => organization.organizationType === 'ACCELERATOR') as organization}{/each}
 </main>
 
 <style>

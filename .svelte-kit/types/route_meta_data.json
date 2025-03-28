@@ -5,15 +5,6 @@
 	"/organizations/accelerators": [
 		"src/routes/+layout.server.ts"
 	],
-	"/organizations/incubators": [
-		"src/routes/+layout.server.ts"
-	],
-	"/organizations/launch": [
-		"src/routes/+layout.server.ts"
-	],
-	"/organizations/venture-capital": [
-		"src/routes/+layout.server.ts"
-	],
 	"/startup/basic-information": [
 		"src/routes/startup/basic-information/+page.server.ts",
 		"src/routes/+layout.server.ts"

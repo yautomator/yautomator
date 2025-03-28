@@ -6,19 +6,6 @@
 	let { children }: SidebarProps = $props();
 </script>
 
-<nav>
+<nav class="">
 	{@render children()}
 </nav>
-
-<style>
-	nav {
-		grid-area: leftbar;
-		height: 100vh;
-		position: sticky;
-		top: 0;
-		overflow: auto;
-
-		display: flex;
-		flex-direction: column;
-	}
-</style>
