@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { X } from 'lucide-svelte';
-	import IconButton from '../buttons/IconButton.svelte';
+	import IconButton from '$lib/Components/Buttons/IconButton.svelte';
 
 	let { modalRef = $bindable(), header, children, footer } = $props();
 
