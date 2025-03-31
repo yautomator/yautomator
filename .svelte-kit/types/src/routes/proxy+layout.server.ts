@@ -19,4 +19,4 @@ export const load = async () => {
 
 	return { startups: [], organizations: [] };
 };
-;null as any as PageServerLoad;
+null as any as PageServerLoad;
