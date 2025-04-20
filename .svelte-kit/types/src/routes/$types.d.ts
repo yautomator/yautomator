@@ -11,14 +11,10 @@ type OutputDataShape<T> = MaybeWithVoid<Omit<App.PageData, RequiredKeys<T>> & Pa
 type EnsureDefined<T> = T extends null | undefined ? {} : T;
 type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends U ? keyof U : never> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 export type Snapshot<T = any> = Kit.Snapshot<T>;
-type LayoutRouteId = RouteId | "/organizations/accelerators" | "/startup/basic-information" | "/startup/business-information" | "/startup/founders" | "/startup/media-and-links" | null
-type LayoutParams = RouteParams & {  }
-type LayoutServerParentData = EnsureDefined<{}>;
+type LayoutRouteId = RouteId | "/organizations/accelerators" | "/startup/[startupId]/about" | "/startup/[startupId]/business" | "/startup/[startupId]/founders" | "/startup/[startupId]/media-and-links" | "/startup/[startupId]/organizations/[orgType]" | "/startup/[startupId]/organizations/[orgType]/[orgId]" | null
+type LayoutParams = RouteParams & { startupId?: string; orgType?: string; orgId?: string }
 type LayoutParentData = EnsureDefined<{}>;
 
-export type LayoutServerLoad<OutputData extends OutputDataShape<LayoutServerParentData> = OutputDataShape<LayoutServerParentData>> = Kit.ServerLoad<LayoutParams, LayoutServerParentData, OutputData, LayoutRouteId>;
-export type LayoutServerLoadEvent = Parameters<LayoutServerLoad>[0];
-export type LayoutServerData = Expand<OptionalUnion<EnsureDefined<Kit.LoadProperties<Awaited<ReturnType<typeof import('./proxy+layout.server.js').load>>>>>>;
-export type LayoutData = Expand<Omit<LayoutParentData, keyof LayoutServerData> & EnsureDefined<LayoutServerData>>;
+export type LayoutServerData = null;
+export type LayoutData = Expand<LayoutParentData>;
 export type LayoutProps = { data: LayoutData; children: import("svelte").Snippet }
-export type RequestEvent = Kit.RequestEvent<RouteParams, RouteId>;

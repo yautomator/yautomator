@@ -30,37 +30,60 @@ declare module '$env/static/private' {
 	export const AWS_ACCESS_KEY_ID: string;
 	export const AWS_SECRET_ACCESS_KEY: string;
 	export const AWS_CV_BUCKET_NAME: string;
+	export const AWS_APPLICATION_FILES_BUCKET_NAME: string;
 	export const BASE_API_URL: string;
+	export const SECRET_STRIPE_KEY: string;
 	export const ALLUSERSPROFILE: string;
 	export const AMDRMPATH: string;
 	export const APPDATA: string;
-	export const CHROME_CRASHPAD_PIPE_NAME: string;
+	export const COLOR: string;
 	export const CommonProgramFiles: string;
 	export const CommonProgramW6432: string;
 	export const COMPUTERNAME: string;
 	export const ComSpec: string;
 	export const curl: string;
-	export const CURSOR_TRACE_ID: string;
 	export const DriverData: string;
-	export const EFC_20044: string;
-	export const ELECTRON_NO_ASAR: string;
-	export const ELECTRON_RUN_AS_NODE: string;
+	export const EDITOR: string;
 	export const flutter: string;
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GOPATH: string;
+	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
+	export const INIT_CWD: string;
 	export const INTEL_DEV_REDIST: string;
 	export const JAVA_HOME: string;
 	export const LOCALAPPDATA: string;
 	export const LOGONSERVER: string;
+	export const NODE: string;
 	export const NODE_ENV: string;
+	export const NODE_EXE: string;
+	export const NPM_CLI_JS: string;
+	export const npm_command: string;
+	export const npm_config_cache: string;
+	export const npm_config_engine_strict: string;
+	export const npm_config_globalconfig: string;
+	export const npm_config_global_prefix: string;
+	export const npm_config_init_module: string;
+	export const npm_config_local_prefix: string;
+	export const npm_config_node_gyp: string;
+	export const npm_config_noproxy: string;
+	export const npm_config_npm_version: string;
+	export const npm_config_prefix: string;
+	export const npm_config_userconfig: string;
+	export const npm_config_user_agent: string;
+	export const npm_execpath: string;
+	export const npm_lifecycle_event: string;
+	export const npm_lifecycle_script: string;
+	export const npm_node_execpath: string;
+	export const npm_package_json: string;
+	export const npm_package_name: string;
+	export const npm_package_version: string;
+	export const NPM_PREFIX_JS: string;
+	export const NPM_PREFIX_NPM_CLI_JS: string;
 	export const NUMBER_OF_PROCESSORS: string;
 	export const OneDrive: string;
 	export const OPENAI_API_KEY: string;
 	export const OPEN_API_KEY: string;
-	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const OS: string;
 	export const Path: string;
 	export const PATHEXT: string;
@@ -71,6 +94,7 @@ declare module '$env/static/private' {
 	export const ProgramData: string;
 	export const ProgramFiles: string;
 	export const ProgramW6432: string;
+	export const PROMPT: string;
 	export const PSModulePath: string;
 	export const PUBLIC: string;
 	export const SESSIONNAME: string;
@@ -82,16 +106,10 @@ declare module '$env/static/private' {
 	export const USERDOMAIN_ROAMINGPROFILE: string;
 	export const USERNAME: string;
 	export const USERPROFILE: string;
-	export const VSCODE_CODE_CACHE_PATH: string;
-	export const VSCODE_CRASH_REPORTER_PROCESS_TYPE: string;
-	export const VSCODE_CWD: string;
-	export const VSCODE_ESM_ENTRYPOINT: string;
-	export const VSCODE_HANDLES_UNCAUGHT_ERRORS: string;
-	export const VSCODE_IPC_HOOK: string;
-	export const VSCODE_NLS_CONFIG: string;
-	export const VSCODE_PID: string;
-	export const VSCODE_PROCESS_TITLE: string;
 	export const windir: string;
+	export const WSLENV: string;
+	export const WT_PROFILE_ID: string;
+	export const WT_SESSION: string;
 	export const __PSLockDownPolicy: string;
 }
 
@@ -105,7 +123,8 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_STRIPE_KEY: string;
+	export const PUBLIC_FRONTEND_URL: string;
 }
 
 /**
@@ -128,37 +147,60 @@ declare module '$env/dynamic/private' {
 		AWS_ACCESS_KEY_ID: string;
 		AWS_SECRET_ACCESS_KEY: string;
 		AWS_CV_BUCKET_NAME: string;
+		AWS_APPLICATION_FILES_BUCKET_NAME: string;
 		BASE_API_URL: string;
+		SECRET_STRIPE_KEY: string;
 		ALLUSERSPROFILE: string;
 		AMDRMPATH: string;
 		APPDATA: string;
-		CHROME_CRASHPAD_PIPE_NAME: string;
+		COLOR: string;
 		CommonProgramFiles: string;
 		CommonProgramW6432: string;
 		COMPUTERNAME: string;
 		ComSpec: string;
 		curl: string;
-		CURSOR_TRACE_ID: string;
 		DriverData: string;
-		EFC_20044: string;
-		ELECTRON_NO_ASAR: string;
-		ELECTRON_RUN_AS_NODE: string;
+		EDITOR: string;
 		flutter: string;
-		FPS_BROWSER_APP_PROFILE_STRING: string;
-		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GOPATH: string;
+		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
+		INIT_CWD: string;
 		INTEL_DEV_REDIST: string;
 		JAVA_HOME: string;
 		LOCALAPPDATA: string;
 		LOGONSERVER: string;
+		NODE: string;
 		NODE_ENV: string;
+		NODE_EXE: string;
+		NPM_CLI_JS: string;
+		npm_command: string;
+		npm_config_cache: string;
+		npm_config_engine_strict: string;
+		npm_config_globalconfig: string;
+		npm_config_global_prefix: string;
+		npm_config_init_module: string;
+		npm_config_local_prefix: string;
+		npm_config_node_gyp: string;
+		npm_config_noproxy: string;
+		npm_config_npm_version: string;
+		npm_config_prefix: string;
+		npm_config_userconfig: string;
+		npm_config_user_agent: string;
+		npm_execpath: string;
+		npm_lifecycle_event: string;
+		npm_lifecycle_script: string;
+		npm_node_execpath: string;
+		npm_package_json: string;
+		npm_package_name: string;
+		npm_package_version: string;
+		NPM_PREFIX_JS: string;
+		NPM_PREFIX_NPM_CLI_JS: string;
 		NUMBER_OF_PROCESSORS: string;
 		OneDrive: string;
 		OPENAI_API_KEY: string;
 		OPEN_API_KEY: string;
-		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		OS: string;
 		Path: string;
 		PATHEXT: string;
@@ -169,6 +211,7 @@ declare module '$env/dynamic/private' {
 		ProgramData: string;
 		ProgramFiles: string;
 		ProgramW6432: string;
+		PROMPT: string;
 		PSModulePath: string;
 		PUBLIC: string;
 		SESSIONNAME: string;
@@ -180,16 +223,10 @@ declare module '$env/dynamic/private' {
 		USERDOMAIN_ROAMINGPROFILE: string;
 		USERNAME: string;
 		USERPROFILE: string;
-		VSCODE_CODE_CACHE_PATH: string;
-		VSCODE_CRASH_REPORTER_PROCESS_TYPE: string;
-		VSCODE_CWD: string;
-		VSCODE_ESM_ENTRYPOINT: string;
-		VSCODE_HANDLES_UNCAUGHT_ERRORS: string;
-		VSCODE_IPC_HOOK: string;
-		VSCODE_NLS_CONFIG: string;
-		VSCODE_PID: string;
-		VSCODE_PROCESS_TITLE: string;
 		windir: string;
+		WSLENV: string;
+		WT_PROFILE_ID: string;
+		WT_SESSION: string;
 		__PSLockDownPolicy: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
@@ -210,6 +247,8 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_STRIPE_KEY: string;
+		PUBLIC_FRONTEND_URL: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

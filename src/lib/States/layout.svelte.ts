@@ -1,11 +1,13 @@
-import type { Founder, Startup } from '$lib/utils/common';
+import type { Accelerator, Founder, Startup } from '$lib/utils/common';
 
 type LayoutType = {
 	selectedFounder: Founder | null;
 	selectedStartup: Startup | null;
+	selectedAccelerator: Accelerator | null;
 };
 
 export const layout = $state<LayoutType>({
 	selectedFounder: null,
-	selectedStartup: null
+	selectedStartup: null,
+	selectedAccelerator: null
 });
