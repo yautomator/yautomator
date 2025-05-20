@@ -14,16 +14,21 @@ export type Founder = {
 export type Startup = {
 	_id: string;
 	name: string;
+	abbreviation: string;
+	color: string;
 	description: string;
 	websiteUrl: string;
 	foundedDate: string;
 	industry: string;
 	teamSize: number;
 	location: string;
+	keyDifferences: string;
+	customersReach: string;
+	revenueModels: string;
+	fundingNeeded: number;
+	productExplanation: string;
 	fundingStage: string;
-	url: string;
 	tagline: string;
-	revenue: number;
 	number_of_users: number;
 	logo: string;
 	demoVideoUrl: string;
@@ -31,14 +36,26 @@ export type Startup = {
 	pitchDeckUrl: string;
 	pitchDeckName: string;
 	incorporation: boolean;
+	problemStatement: string;
+	solution: string;
 	founders: Founder[];
 	user: string;
-	applications: any[];
+	applications: StartupApplication[];
 	createdAt: string;
 	updatedAt: string;
 	__v: number;
-	abbreviation: string;
-	color: string;
+	hasCurrentCustomers: boolean;
+	techStack: string[];
+};
+
+export type StartupApplication = {
+	organization: string;
+	applicationType: string;
+	status: string;
+	responses: Record<string, string>;
+	createdAt: string;
+	updatedAt: string;
+	_id: string;
 };
 
 export type Program = {
@@ -103,3 +120,65 @@ export type Accelerator = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+export type Organization = {
+	_id: string;
+	organizationType: string;
+	name: string;
+	rpaName: string;
+	description: string;
+	subHeader: string;
+	applicationUrl: string;
+	url: string;
+	logo: string;
+	industries: string[];
+	fundingType: string[];
+	programs: string[];
+	requiresLogin: boolean;
+	applicationQuestions: OrganizationApplicationQuestion[];
+	locations: string[];
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+	apply: {
+		cost: number;
+		supported: boolean;
+	};
+	generateResponses: {
+		cost: number;
+		supported: boolean;
+	};
+	launchDetails: {
+		visitors: number;
+		listingTime: string;
+		listingPrice: number;
+	};
+};
+
+export type OrganizationApplicationQuestion = {
+	maxLength: {
+		limit: number;
+		lengthType: string;
+	};
+	question: string;
+	type: string;
+	subType: string | null;
+	required: boolean;
+	options: string[];
+	_id: string;
+};
+
+export function intToCurrency(amount: number) {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		notation: 'compact',
+	}).format(amount);
+}
+
+export function daysUntil(dateString: string) {
+	const now = new Date();
+	const deadline = new Date(dateString);
+	const diff = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+	return diff;
+}

@@ -1,38 +1,17 @@
 {
 	"/": [],
-	"/api/autocomplete": [
-		"src/routes/api/autocomplete/+server.ts"
-	],
 	"/api/checkout": [
 		"src/routes/api/checkout/+server.ts"
 	],
-	"/organizations/accelerators": [],
 	"/startup/[startupId]": [
 		"src/routes/startup/[startupId]/+layout.server.ts"
 	],
-	"/startup/[startupId]/about": [
-		"src/routes/startup/[startupId]/about/+page.server.ts",
-		"src/routes/startup/[startupId]/+layout.server.ts"
-	],
-	"/startup/[startupId]/business": [
-		"src/routes/startup/[startupId]/business/+page.server.ts",
-		"src/routes/startup/[startupId]/+layout.server.ts"
-	],
-	"/startup/[startupId]/founders": [
-		"src/routes/startup/[startupId]/founders/+page.server.ts",
-		"src/routes/startup/[startupId]/+layout.server.ts"
-	],
-	"/startup/[startupId]/media-and-links": [
-		"src/routes/startup/[startupId]/media-and-links/+page.server.ts",
-		"src/routes/startup/[startupId]/+layout.server.ts"
-	],
-	"/startup/[startupId]/organizations/[orgType]": [
-		"src/routes/startup/[startupId]/organizations/[orgType]/+page.server.ts",
+	"/startup/[startupId]/organizations": [
 		"src/routes/startup/[startupId]/+layout.server.ts",
 		"src/routes/startup/[startupId]/+layout.server.ts"
 	],
-	"/startup/[startupId]/organizations/[orgType]/[orgId]": [
-		"src/routes/startup/[startupId]/organizations/[orgType]/[orgId]/+page.server.ts",
+	"/startup/[startupId]/organizations/[orgId]": [
+		"src/routes/startup/[startupId]/organizations/[orgId]/+page.server.ts",
 		"src/routes/startup/[startupId]/+layout.server.ts"
 	]
 }
