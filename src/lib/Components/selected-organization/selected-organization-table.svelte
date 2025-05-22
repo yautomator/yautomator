@@ -1,9 +1,7 @@
 <script lang="ts">
-	import type { Accelerator, Startup } from '$lib/utils/common';
-
 	interface Props {
-		selectedOrganization: Accelerator;
-		selectedStartup: Startup;
+		selectedOrganization: Organization.Entity;
+		selectedStartup: Startup.Entity;
 	}
 
 	let { selectedOrganization, selectedStartup }: Props = $props();

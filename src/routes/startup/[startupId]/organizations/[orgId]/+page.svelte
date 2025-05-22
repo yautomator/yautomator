@@ -3,15 +3,18 @@
 	import { page } from '$app/state';
 	import { Clickable } from '$lib/components/clickable';
 	import { SelectedOrganization } from '$lib/components/selected-organization';
-	import type { Accelerator, Startup } from '$lib/utils/common';
 	import { Button } from 'bits-ui';
 
 	const selectedOrganization = $derived.by(() => {
-		return page.data.organizations?.find((org: Accelerator) => org._id === page.params.orgId);
+		return page.data.organizations?.find(
+			(org: Organization.Entity) => org._id === page.params.orgId
+		);
 	});
 
 	const selectedStartup = $derived.by(() => {
-		return page.data.startups?.find((startup: Startup) => startup._id === page.params.startupId);
+		return page.data.startups?.find(
+			(startup: Startup.Entity) => startup._id === page.params.startupId
+		);
 	});
 
 	const handleClose = () => {

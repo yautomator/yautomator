@@ -31,6 +31,8 @@ declare module '$env/static/private' {
 	export const AWS_SECRET_ACCESS_KEY: string;
 	export const AWS_BUCKET_NAME: string;
 	export const BASE_API_URL: string;
+	export const SECRET_STRIPE_KEY: string;
+	export const AWS_APPLICATION_FILES_BUCKET_NAME: string;
 	export const ALLUSERSPROFILE: string;
 	export const AMDRMPATH: string;
 	export const APPDATA: string;
@@ -54,7 +56,6 @@ declare module '$env/static/private' {
 	export const NODE_ENV: string;
 	export const NODE_PATH: string;
 	export const npm_command: string;
-	export const npm_config_engine_strict: string;
 	export const npm_config_frozen_lockfile: string;
 	export const npm_config_node_gyp: string;
 	export const npm_config_registry: string;
@@ -134,6 +135,8 @@ declare module '$env/dynamic/private' {
 		AWS_SECRET_ACCESS_KEY: string;
 		AWS_BUCKET_NAME: string;
 		BASE_API_URL: string;
+		SECRET_STRIPE_KEY: string;
+		AWS_APPLICATION_FILES_BUCKET_NAME: string;
 		ALLUSERSPROFILE: string;
 		AMDRMPATH: string;
 		APPDATA: string;
@@ -157,7 +160,6 @@ declare module '$env/dynamic/private' {
 		NODE_ENV: string;
 		NODE_PATH: string;
 		npm_command: string;
-		npm_config_engine_strict: string;
 		npm_config_frozen_lockfile: string;
 		npm_config_node_gyp: string;
 		npm_config_registry: string;

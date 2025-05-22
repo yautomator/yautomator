@@ -1,21 +1,21 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { intToCurrency, type Organization, type Startup } from '$lib/utils/common';
+	import { intToCurrency } from '$lib/utils/currency';
 	import { Button } from 'bits-ui';
 
 	interface Props {
-		organization: Organization;
-		selectedStartup: Startup;
+		organization: Organization.Entity;
+		selectedStartup: Startup.Entity;
 	}
 
 	let { organization, selectedStartup }: Props = $props();
 
-	const handleSelectOrganization = (organization: Organization) => {
+	const handleSelectOrganization = (organization: Organization.Entity) => {
 		goto(`/startup/${selectedStartup._id}/organizations/${organization._id}`);
 	};
 
-	const computeFundingPerEquity = (organization: Organization) => {
+	const computeFundingPerEquity = (organization: Organization.Entity) => {
 		if (!organization.acceleratorDetails || !organization.acceleratorDetails.equityTaken) {
 			return 'N/A';
 		}

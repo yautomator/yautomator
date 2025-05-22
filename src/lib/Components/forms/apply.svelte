@@ -1,13 +1,12 @@
 <script lang="ts">
-	import type { Accelerator } from '$lib/utils/common';
-	import type { HTMLFormAttributes } from 'svelte/elements';
-	import nProgress from 'nprogress';
-	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import nProgress from 'nprogress';
+	import type { HTMLFormAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLFormAttributes {
-		selectedApplication: any | null;
-		selectedOrganization: Accelerator | null;
+		selectedApplication: Startup.Application | null;
+		selectedOrganization: Organization.Entity | null;
 		closeModal: () => void;
 	}
 
@@ -77,7 +76,7 @@
 						id={question._id}
 						name={question._id}
 						required={question.required}
-						maxlength={question.maxLength}
+						maxlength={question.maxLength.limit}
 						value={selectedApplication?.responses[question._id]}
 						class="border-1 border-border rounded-md p-2"
 					/>

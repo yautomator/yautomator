@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { Search } from 'lucide-svelte';
-	import type { Snippet } from 'svelte';
-
 	interface Props {
 		placeholder: string;
 	}
@@ -15,8 +12,10 @@
 		{placeholder}
 		class="p-[10px] pl-12 rounded-full border-1 border-none bg-[#2e2f2f] text-gray-50 text-sm w-full placeholder-[#abacac]"
 	/>
-	<Search
+	<iconify-icon
+		icon="mdi:search"
 		class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none"
-		size={14}
-	/>
+		width="14"
+		height="14"
+	></iconify-icon>
 </div>
