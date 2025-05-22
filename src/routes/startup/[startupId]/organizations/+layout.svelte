@@ -1,22 +1,19 @@
 <script lang="ts">
-	import type { LayoutProps } from '../$types';
-	import { Organization } from '$lib/components/organization';
+	import { page } from '$app/state';
 	import { Filter } from '$lib/components/filter';
+	import { Organization } from '$lib/components/organization';
 	import { Search } from '$lib/components/search';
+	import { Sidepanel } from '$lib/components/sidepanel';
+	import type { Organization as OrganizationType, Startup } from '$lib/utils/common';
+	import type { LayoutProps } from '../$types';
+
 	let { children, data }: LayoutProps = $props();
 
-	interface Organization {
-		_id: string;
-		name: string;
-		description: string;
-		organizationType: string;
-		applied: boolean;
-		fundingAmount: string;
-		equityTaken: string;
-		deadline: string;
-	}
-
 	let selectedFilter = $state('all');
+
+	const selectedStartup = $derived.by(() => {
+		return page.data.startups?.find((startup: Startup) => startup._id === page.params.startupId);
+	});
 
 	const filters = [
 		{ id: 'all', label: 'All' },
@@ -26,11 +23,13 @@
 		{ id: 'LAUNCH', label: 'Launch' }
 	];
 
-	let filteredOrganizations = $derived(
-		selectedFilter === 'all'
-			? data.organizations
-			: data.organizations.filter((org: Organization) => org.organizationType === selectedFilter)
-	);
+	let filteredOrganizations = $derived.by(() => {
+		if (selectedFilter === 'all') return data.organizations;
+
+		return data.organizations.filter(
+			(org: OrganizationType) => org.organizationType === selectedFilter
+		);
+	});
 
 	function handleFilterClick(filterId: string) {
 		selectedFilter = filterId;
@@ -38,8 +37,8 @@
 </script>
 
 <div class="flex h-full">
-	<div class="border-r-1 border-border flex flex-col gap-1 w-[40%]">
-		<h1 class="text-[1.4rem] font-medium text-gray-100 py-[13px] px-[20px]">Organizations</h1>
+	<Sidepanel.Root>
+		<Sidepanel.Title>Organizations</Sidepanel.Title>
 
 		<Search.Root placeholder="Search for an organization" />
 
@@ -51,10 +50,10 @@
 
 		<Organization.Root>
 			{#each filteredOrganizations as organization (organization._id)}
-				<Organization.Item {organization} />
+				<Organization.Item {organization} {selectedStartup} />
 			{/each}
 		</Organization.Root>
-	</div>
+	</Sidepanel.Root>
 
 	{@render children()}
 </div>

@@ -1,19 +1,16 @@
 <script lang="ts">
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { PUBLIC_STRIPE_KEY } from '$env/static/public';
+	import logo from '$lib/assets/images/logo.png';
 	import { loadStripe } from '@stripe/stripe-js';
 
-	const STARTER_TOKENS_PACKAGE_PRICE_ID = 'price_1RBiuNFwuyLmQDl0CQ4qK2JR';
-	const ADVANCED_TOKENS_PACKAGE_PRICE_ID = 'price_1RBiwBFwuyLmQDl0DvShKz7n';
-	import logo from '$lib/assets/images/logo.png';
-
+	import { page } from '$app/state';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
-	import { page } from '$app/state';
 
+	import { Sidebar } from '$lib/components/sidebar';
 	import '../../../app.css';
 	import type { LayoutProps } from './$types';
-	import { Sidebar } from '$lib/components/sidebar';
 	let { children }: LayoutProps = $props();
 
 	NProgress.configure({ showSpinner: false });

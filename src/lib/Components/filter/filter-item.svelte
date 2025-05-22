@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 	import { Button } from 'bits-ui';
-	import { daysUntil, intToCurrency } from '$lib/utils/common';
 
 	interface Props {
 		filter: any;

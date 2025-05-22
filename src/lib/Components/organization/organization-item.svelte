@@ -1,54 +1,68 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { intToCurrency, type Organization, type Startup } from '$lib/utils/common';
 	import { Button } from 'bits-ui';
-	import { daysUntil, intToCurrency } from '$lib/utils/common';
 
 	interface Props {
-		organization: any;
+		organization: Organization;
+		selectedStartup: Startup;
 	}
 
-	let { organization }: Props = $props();
+	let { organization, selectedStartup }: Props = $props();
 
-	const handleSelectOrganization = (organization: any) => {
-		goto(`/startup/${page.params.startupId}/organizations/${organization._id}`);
+	const handleSelectOrganization = (organization: Organization) => {
+		goto(`/startup/${selectedStartup._id}/organizations/${organization._id}`);
 	};
+
+	const computeFundingPerEquity = (organization: Organization) => {
+		if (!organization.acceleratorDetails || !organization.acceleratorDetails.equityTaken) {
+			return 'N/A';
+		}
+
+		const { minAmount, maxAmount } = organization.acceleratorDetails.equityTaken;
+
+		if (!minAmount || !maxAmount) return 'N/A';
+
+		const equityRange = minAmount === maxAmount ? `${minAmount}%` : `${minAmount}-${maxAmount}%`;
+		return `${intToCurrency(organization.acceleratorDetails.fundingAmount)} • ${equityRange}`;
+	};
+
+	const applicationStatus = $derived.by(() => {
+		const application = selectedStartup.applications.find(
+			(app) => app.organization === organization._id
+		);
+
+		return application?.status;
+	});
 </script>
 
-<li class="flex px-[10px]">
+<li class="px-[10px]">
 	<Button.Root
-		class="w-full flex items-center justify-between p-3 cursor-pointer hover:bg-[#242626] gap-4 rounded-[10px] data-[active=true]:bg-[#292a2a]"
+		class="w-full flex items-center justify-between p-3 cursor-pointer hover:bg-[#2e2f2f] gap-4 rounded-[10px] data-[active=true]:bg-[#2e2f2f]"
 		onclick={() => handleSelectOrganization(organization)}
 		data-active={page.params.orgId === organization._id}
 	>
 		<div class="flex items-center gap-4">
 			<img src={organization.logo} alt={organization.name} class="w-12 h-12 rounded-full" />
-			<div>
+
+			<div class="flex flex-col text-left gap-1">
 				<h3 class="text-gray-100">{organization.name}</h3>
-				<h4 class="text-xs text-red-400 mt-0.5">
-					{#if organization.deadline}
-						Deadline in {daysUntil(organization.deadline)} days
-					{/if}
-				</h4>
+				<h4 class="text-xs text-gray-400 mt-0.5">Deadline in 3 days</h4>
 			</div>
 		</div>
 
 		<div class="flex flex-col items-end gap-1">
-			{#if organization.applied}
-				<span class="text-xs text-green-100"> Applied </span>
+			{#if applicationStatus === 'SUBMITTED'}
+				<span class="text-xs text-green-100 px-2 py-1 bg-[#4e1c90] rounded-full"> Applied </span>
 			{:else}
-				<span class="text-xs text-gray-200 px-2 py-1 bg-neutral-600 rounded-full">
+				<span class="text-xs text-gray-200 px-2 py-1 bg-neutral-700 rounded-full">
 					Not Applied
 				</span>
 			{/if}
 
 			<span class="text-xs text-gray-400 mt-1 text-right">
-				{#if organization.acceleratorDetails?.fundingAmount && organization.acceleratorDetails?.equityTaken}
-					{intToCurrency(organization.acceleratorDetails?.fundingAmount)} for {organization
-						.acceleratorDetails?.equityTaken}%
-				{:else}
-					N/A
-				{/if}
+				{computeFundingPerEquity(organization)}
 			</span>
 		</div>
 	</Button.Root>
